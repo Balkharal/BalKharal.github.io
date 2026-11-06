@@ -18,6 +18,7 @@ var GALLERY = [
   // { file: "site-visit-1.jpg", section: "Site Visits", caption: "HVAC condition assessment, 2025" },
   // { file: "conference-1.jpg", section: "Professional Work", caption: "ASHRAE Annual Conference, Phoenix, 2025" },
   // { file: "hobby-1.jpg", section: "Beyond Work", caption: "Weekend football with friends" },
+  { file: "thesis-defense-2026.jpg", section: "Professional Work", caption: "Master's thesis defense, North Dakota State University, July 2026" },
 ];
 </script>
 <meta name="description" content="Bal Krishna Kharal is a Ph.D. candidate at North Dakota State University working on building energy modeling and heat pump systems.">
@@ -172,6 +173,26 @@ h3 {
 .viewer-bar button { font: inherit; font-weight: 600; padding: 0.45rem 0.8rem; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
 .viewer-bar button:hover { background: var(--hover); }
 
+.nav-search { display: inline-flex; align-items: center; gap: 0.35rem; }
+.nav-search svg { width: 1em; height: 1em; }
+.search-box { display: flex; gap: 0.5rem; max-width: 40rem; }
+.search-box input {
+  flex: 1; min-width: 0; padding: 0.7rem 0.9rem; font: inherit; font-family: var(--sans); font-size: 1.05rem;
+  color: var(--ink); background: transparent; border: 1px solid var(--ink); border-radius: 0;
+}
+.search-box input:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.search-status { margin: 1rem 0 0; font-family: var(--sans); font-size: 0.95rem; color: var(--muted); }
+.results { list-style: none; margin: 1rem 0 0; padding: 0; border-top: 1px solid var(--line); }
+.results li { border-bottom: 1px solid var(--line); }
+.results a { display: block; padding: 0.9rem 0; color: var(--ink); text-decoration: none; }
+.results a:hover .r-page, .results a:focus-visible .r-page { text-decoration: underline; }
+.r-page { display: block; font-family: var(--sans); font-weight: 650; color: var(--link); }
+.r-text { display: block; margin-top: 0.2rem; font-size: 1rem; line-height: 1.5; }
+mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
+.flash { animation: flash 2s ease-out; }
+@keyframes flash { from { background: #f3dc8a; } to { background: transparent; } }
+@media (prefers-reduced-motion: reduce) { .flash { animation: none; outline: 2px solid var(--link); outline-offset: 4px; } }
+
 footer {
   padding: 1.5rem var(--gutter) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -204,6 +225,7 @@ footer {
       <li><a href="#skills">Skills</a></li>
       <li id="gallery-link" hidden><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Contact</a></li>
+      <li><a class="nav-search" href="#search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>Search</a></li>
     </ul>
   </nav>
 </header>
@@ -342,6 +364,18 @@ footer {
       <p>The best way to reach me is on <a href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a">LinkedIn</a>.</p>
     </div>
   </section>
+
+  <section class="band page" id="search" hidden>
+    <h2>Search</h2>
+    <div>
+      <form class="search-box" role="search" onsubmit="return false">
+        <label for="search-input" class="sr-only" style="position:absolute;left:-9999px">Search this website</label>
+        <input id="search-input" type="search" placeholder="Search research, skills, publications..." autocomplete="off">
+      </form>
+      <p class="search-status" id="search-status" aria-live="polite">Type a word, like EnergyPlus or ASHRAE.</p>
+      <ul class="results" id="search-results" hidden></ul>
+    </div>
+  </section>
 </main>
 
 <footer>Bal Krishna Kharal</footer>
@@ -418,6 +452,88 @@ footer {
   var single = photos.length < 2;
   document.getElementById('viewer-prev').hidden = single;
   document.getElementById('viewer-next').hidden = single;
+})();
+</script>
+<script>
+// Searches the text of every page and the gallery captions.
+(function () {
+  var input = document.getElementById('search-input');
+  var status = document.getElementById('search-status');
+  var list = document.getElementById('search-results');
+  var pending = null;
+  var picks = '.role, .degrees li, .bio p, .news li, .entry, .band > div > p, .pubs li, .skills > div, .grid figure';
+
+  function blocks() {
+    var out = [];
+    document.querySelectorAll('.page').forEach(function (page) {
+      if (page.id === 'search') return;
+      var heading = page.querySelector('h1, h2');
+      var name = page.id === 'home' ? 'Home' : heading.textContent;
+      var found = [].slice.call(page.querySelectorAll(picks));
+      found.forEach(function (el) {
+        if (found.some(function (other) { return other !== el && other.contains(el); })) return;
+        var copy = el.cloneNode(true);
+        copy.querySelectorAll('h3, dt, time').forEach(function (n) { n.appendChild(document.createTextNode(': ')); });
+        copy.querySelectorAll('p, li, dd, figcaption').forEach(function (n) { n.insertBefore(document.createTextNode(' '), n.firstChild); });
+        var text = copy.textContent.replace(/\s+/g, ' ').trim();
+        if (text) out.push({ page: page.id, name: name, el: el, text: text });
+      });
+    });
+    return out;
+  }
+
+  function snippet(text, words) {
+    var lower = text.toLowerCase(), at = lower.indexOf(words[0]);
+    var start = Math.max(0, at - 60);
+    if (start) { var sp = text.indexOf(' ', start); if (sp !== -1 && sp < at) start = sp + 1; }
+    var end = Math.min(text.length, start + 180);
+    if (end < text.length) { var sp2 = text.lastIndexOf(' ', end); if (sp2 > at) end = sp2; }
+    var part = (start ? '... ' : '') + text.slice(start, end) + (end < text.length ? ' ...' : '');
+    var frag = document.createDocumentFragment();
+    var re = new RegExp('(' + words.map(function (w) { return w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }).join('|') + ')', 'gi');
+    part.split(re).forEach(function (piece, i) {
+      if (!piece) return;
+      if (i % 2) { var m = document.createElement('mark'); m.textContent = piece; frag.appendChild(m); }
+      else frag.appendChild(document.createTextNode(piece));
+    });
+    return frag;
+  }
+
+  function run() {
+    var q = input.value.trim().toLowerCase();
+    list.innerHTML = '';
+    if (!q) { list.hidden = true; status.textContent = 'Type a word, like EnergyPlus or ASHRAE.'; return; }
+    var words = q.split(/\s+/);
+    var hits = blocks().filter(function (b) {
+      var t = b.text.toLowerCase();
+      return words.every(function (w) { return t.indexOf(w) !== -1; });
+    });
+    status.textContent = hits.length
+      ? hits.length + (hits.length === 1 ? ' result' : ' results') + ' for "' + input.value.trim() + '"'
+      : 'No results for "' + input.value.trim() + '". Try a different word.';
+    list.hidden = !hits.length;
+    hits.forEach(function (h) {
+      var li = document.createElement('li'), a = document.createElement('a');
+      a.href = '#' + h.page;
+      var p = document.createElement('span'); p.className = 'r-page'; p.textContent = h.name;
+      var t = document.createElement('span'); t.className = 'r-text'; t.appendChild(snippet(h.text, words));
+      a.appendChild(p); a.appendChild(t);
+      a.addEventListener('click', function () { pending = h.el; });
+      li.appendChild(a); list.appendChild(li);
+    });
+  }
+
+  input.addEventListener('input', run);
+  window.addEventListener('hashchange', function () {
+    if (location.hash === '#search') { setTimeout(function () { input.focus(); }, 0); return; }
+    if (!pending) return;
+    var el = pending; pending = null;
+    setTimeout(function () {
+      var top = el.getBoundingClientRect().top + window.scrollY - document.querySelector('.topbar').offsetHeight - 16;
+      window.scrollTo(0, Math.max(0, top));
+      el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+    }, 30);
+  });
 })();
 </script>
 <script>
