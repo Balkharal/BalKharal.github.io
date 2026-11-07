@@ -32,7 +32,7 @@ var GALLERY = [
 <meta property="og:type" content="profile">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,600..800&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #eef3f5;
@@ -46,6 +46,7 @@ var GALLERY = [
   --sans: "Open Sans", "Helvetica Neue", Arial, sans-serif;
   --serif: "Libre Baskerville", Georgia, "Times New Roman", serif;
   --display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --name: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --gutter: clamp(1.25rem, 5vw, 4.5rem);
   --page: 72rem;
   --edge: max(var(--gutter), calc((100% - var(--page)) / 2 + var(--gutter)));
@@ -90,7 +91,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .topbar a { color: inherit; text-decoration: none; padding: 0.2rem 0; }
 .topbar a:hover { text-decoration: underline; }
-.brand { font-family: var(--display); font-weight: 700; font-size: 1.35rem; }
+.brand { font-family: var(--name); font-weight: 700; font-stretch: 112%; font-size: 1.05rem; }
 .topbar ul { display: flex; flex-wrap: wrap; gap: 0.15rem 1.25rem; list-style: none; margin: 0; padding: 0; }
 .topbar a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
 
@@ -105,11 +106,12 @@ a:hover { text-decoration-thickness: 2px; }
 }
 h1 {
   margin: 0;
-  font-family: var(--display);
-  font-weight: 800;
+  font-family: var(--name);
+  font-stretch: 118%;
+  font-weight: 750;
   font-size: clamp(1.6rem, 4.2vw, 3rem);
   line-height: 1.05;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
   white-space: nowrap;
 }
 .profile-text { container-type: inline-size; min-width: 0; }
