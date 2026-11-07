@@ -143,7 +143,14 @@ h1 {
 .degrees li { padding: 0.2rem 0; }
 .email { margin: 1rem 0 0; }
 .degrees b { font-family: var(--sans); font-weight: 600; }
-.bio { max-width: 62ch; margin: 2.5rem 0 0; }
+.intro-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 20rem); gap: 1.5rem 2.5rem; align-items: start; margin-top: 2.5rem; }
+.bio { max-width: none; margin: 0; }
+.interests { padding: 1.25rem 1.4rem; background: var(--hover); border-left: 4px solid var(--link); border-radius: 6px; }
+.interests h2 { margin: 0 0 0.75rem; font-size: 1.25rem; }
+.interests ul { margin: 0; padding-left: 1.1rem; }
+.interests li { padding: 0.2rem 0; font-size: 0.98rem; line-height: 1.5; }
+.interests li::marker { color: var(--link); }
+@media (max-width: 860px) { .intro-row { grid-template-columns: minmax(0, 1fr); } }
 .bio p { margin: 0 0 1rem; }
 .news { margin-top: 3rem; }
 .news h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin-bottom: 1rem; }
@@ -291,6 +298,8 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 .connect b { display: block; font-family: var(--sans); font-weight: 700; font-size: 1rem; }
 .connect .sub { display: block; font-size: 0.92rem; color: var(--link); overflow-wrap: anywhere; }
 
+footer p { margin: 0; }
+footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -338,7 +347,7 @@ footer {
     <div class="profile-text">
       <h1>Bal Krishna Kharal</h1>
       <ul class="degrees">
-        <li><b>Ph.D. in Civil Engineering</b>, North Dakota State University, Fargo, ND, USA (2024 to December 2027, expected)</li>
+        <li><b>Ph.D. in Civil Engineering</b>, North Dakota State University, Fargo, ND, USA, Jan 2024 to Dec 2027 (Expected)</li>
         <li><b>M.S. in Construction Management</b>, North Dakota State University, Fargo, ND, USA (2024 to 2026)</li>
         <li><b>B.E. in Industrial Engineering</b>, Tribhuvan University, Institute of Engineering, Thapathali Campus, Kathmandu, Nepal (2017 to 2021)</li>
       </ul>
@@ -349,9 +358,23 @@ footer {
     </div>
   </div>
 
-  <div class="bio">
-    <p>I study how heat pumps and HVAC systems perform in real buildings. My research combines building energy simulation, measured data, and EnergyPlus and Modelica co-simulation to compare air-source, ground-source, and multi-source heat pump systems, with a focus on cold climates.</p>
-    <p>Before my Ph.D., I worked as an HVAC engineer at Thermotech Pvt. Ltd. in Kathmandu, Nepal, designing and commissioning systems for residential, commercial, and industrial buildings. I am open to energy modeling and HVAC roles.</p>
+  <div class="intro-row">
+    <div class="bio">
+      <p>I study how heat pumps and HVAC systems perform in real buildings. My research combines building energy simulation, measured data, and EnergyPlus and Modelica co-simulation to compare air-source, ground-source, and multi-source heat pump systems, with a focus on cold climates.</p>
+      <p>Before my Ph.D., I worked as an HVAC engineer at Thermotech Pvt. Ltd. in Kathmandu, Nepal, designing and commissioning systems for residential, commercial, and industrial buildings. I am open to energy modeling and HVAC roles.</p>
+    </div>
+    <aside class="interests" aria-labelledby="interests-title">
+      <h2 id="interests-title">Research interests</h2>
+      <ul>
+        <li>Building energy modeling and simulation</li>
+        <li>Heat pump systems: air-source, ground-source, and multi-source</li>
+        <li>EnergyPlus and Modelica co-simulation</li>
+        <li>Model calibration and uncertainty analysis</li>
+        <li>Digital twins for buildings</li>
+        <li>AI in simulation workflows</li>
+        <li>HVAC design and energy audits</li>
+      </ul>
+    </aside>
   </div>
 
   <section class="news" aria-labelledby="news-title">
@@ -597,7 +620,10 @@ footer {
   </section>
 </main>
 
-<footer>Bal Krishna Kharal</footer>
+<footer>
+  <p>Bal Krishna Kharal</p>
+  <p class="updated">Last updated: <time datetime="2026-11-07">November 7, 2026</time></p>
+</footer>
 <script>
 // Builds the gallery from the GALLERY list at the top of this file.
 (function () {
@@ -837,7 +863,7 @@ footer {
   var status = document.getElementById('search-status');
   var list = document.getElementById('search-results');
   var pending = null;
-  var picks = '.role, .degrees li, .bio p, .news li, .entry, .band > div > p, .pubs li, .skills > div, .grid figure';
+  var picks = '.role, .degrees li, .bio p, .interests li, .news li, .entry, .band > div > p, .pubs li, .skills > div, .grid figure';
 
   function blocks() {
     var out = [];
