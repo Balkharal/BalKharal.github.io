@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Bal Krishna Kharal | Building Energy Modeling and HVAC</title>
 <script>
+// Light/dark mode: use the visitor's saved choice if there is one.
+(function () {
+  try {
+    var t = localStorage.getItem('theme');
+    if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+})();
+</script>
+<script>
 /* ===================== GALLERY PHOTOS =====================
    To add a photo:
    1. Upload it to the "gallery" folder in your GitHub repository.
@@ -72,7 +81,7 @@ var GALLERY = [
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #10222e;
     --ink: #e6eef2;
     --muted: #a3b7c3;
@@ -83,6 +92,17 @@ var GALLERY = [
     --hover: #1a3040;
     color-scheme: dark;
   }
+}
+:root[data-theme="dark"] {
+  --bg: #10222e;
+  --ink: #e6eef2;
+  --muted: #a3b7c3;
+  --line: #2f4757;
+  --link: #8ab4f8;
+  --button: #e6eef2;
+  --button-ink: #10222e;
+  --hover: #1a3040;
+  color-scheme: dark;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -300,6 +320,18 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 
 footer p { margin: 0; }
 footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
+.theme-toggle {
+  position: relative; display: inline-grid; place-items: center;
+  padding: 0.35rem; margin: -0.35rem 0; border: 0; border-radius: 4px;
+  background: transparent; color: inherit; cursor: pointer;
+}
+.theme-toggle:hover { background: var(--hover); }
+.theme-toggle svg { display: block; width: 1.25rem; height: 1.25rem; }
+.theme-toggle .icon-sun { display: none; }
+:root[data-dark="true"] .theme-toggle .icon-sun { display: block; }
+:root[data-dark="true"] .theme-toggle .icon-moon { display: none; }
+.theme-toggle:hover .tip, .theme-toggle:focus-visible .tip { opacity: 1; visibility: visible; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -334,6 +366,7 @@ footer {
       <li id="gallery-link" hidden><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Connect with Me</a></li>
       <li><a class="nav-search" href="#search" aria-label="Open search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span class="tip" aria-hidden="true">Open search</span></a></li>
+      <li><button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode"><span class="icon-moon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg></span><span class="icon-sun"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg></span><span class="tip" aria-hidden="true">Dark mode</span></button></li>
     </ul>
   </nav>
 </header>
@@ -938,6 +971,33 @@ footer {
       el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
     }, 30);
   });
+})();
+</script>
+<script>
+// Light/dark mode button.
+(function () {
+  var btn = document.getElementById('theme-toggle');
+  var tip = btn.querySelector('.tip');
+  var media = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark() {
+    var t = document.documentElement.getAttribute('data-theme');
+    return t ? t === 'dark' : media.matches;
+  }
+  function sync() {
+    var dark = isDark();
+    document.documentElement.setAttribute('data-dark', dark ? 'true' : 'false');
+    var label = dark ? 'Light mode' : 'Dark mode';
+    btn.setAttribute('aria-label', 'Switch to ' + label.toLowerCase());
+    tip.textContent = label;
+  }
+  btn.addEventListener('click', function () {
+    var next = isDark() ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    sync();
+  });
+  if (media.addEventListener) media.addEventListener('change', sync);
+  sync();
 })();
 </script>
 <script>
