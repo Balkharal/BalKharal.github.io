@@ -32,21 +32,22 @@ var GALLERY = [
 <meta property="og:type" content="profile">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Open+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg: #eef3f5;
-  --ink: #142b3a;
-  --muted: #4b6271;
+  --ink: #1a1a1a;
+  --muted: #4a4f54;
   --line: #c6d3da;
-  --link: #0d5a70;
-  --button: #142b3a;
+  --link: #1a66d6;
+  --button: #1a1a1a;
   --button-ink: #eef3f5;
   --hover: #dfe8ec;
-  --sans: "Archivo", "Helvetica Neue", Arial, sans-serif;
-  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans: "Open Sans", "Helvetica Neue", Arial, sans-serif;
+  --serif: "Libre Baskerville", Georgia, "Times New Roman", serif;
+  --display: "Playfair Display", Georgia, "Times New Roman", serif;
   --gutter: clamp(1.25rem, 5vw, 4.5rem);
-  --page: 62rem;
+  --page: 72rem;
   --edge: max(var(--gutter), calc((100% - var(--page)) / 2 + var(--gutter)));
   color-scheme: light;
 }
@@ -56,7 +57,7 @@ var GALLERY = [
     --ink: #e6eef2;
     --muted: #a3b7c3;
     --line: #2f4757;
-    --link: #8ccde0;
+    --link: #8ab4f8;
     --button: #e6eef2;
     --button-ink: #10222e;
     --hover: #1a3040;
@@ -72,8 +73,8 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--serif);
-  font-size: 1.125rem;
-  line-height: 1.6;
+  font-size: 1.0625rem;
+  line-height: 1.7;
 }
 a { color: var(--link); text-underline-offset: 0.16em; text-decoration-thickness: 1px; }
 a:hover { text-decoration-thickness: 2px; }
@@ -89,7 +90,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .topbar a { color: inherit; text-decoration: none; padding: 0.2rem 0; }
 .topbar a:hover { text-decoration: underline; }
-.brand { font-weight: 700; font-stretch: 112%; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 1.35rem; }
 .topbar ul { display: flex; flex-wrap: wrap; gap: 0.15rem 1.25rem; list-style: none; margin: 0; padding: 0; }
 .topbar a[aria-current="page"] { font-weight: 700; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
 
@@ -104,12 +105,11 @@ a:hover { text-decoration-thickness: 2px; }
 }
 h1 {
   margin: 0;
-  font-family: var(--sans);
-  font-stretch: 118%;
-  font-weight: 750;
+  font-family: var(--display);
+  font-weight: 800;
   font-size: clamp(1.6rem, 4.2vw, 3rem);
   line-height: 1.05;
-  letter-spacing: -0.02em;
+  letter-spacing: 0;
   white-space: nowrap;
 }
 .profile-text { container-type: inline-size; min-width: 0; }
@@ -121,7 +121,7 @@ h1 {
 .degrees { list-style: none; margin: 1.25rem 0 0; padding: 0; }
 .degrees li { padding: 0.2rem 0; }
 .email { margin: 1rem 0 0; }
-.degrees b { font-family: var(--sans); font-weight: 650; }
+.degrees b { font-family: var(--sans); font-weight: 600; }
 .bio { max-width: 62ch; margin: 2.5rem 0 0; }
 .bio p { margin: 0 0 1rem; }
 .news { margin-top: 3rem; }
@@ -142,15 +142,15 @@ main { padding: 0 var(--gutter); }
 .band { max-width: calc(var(--page) - 2 * var(--gutter)); margin-inline: auto; padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 7vw, 5rem); }
 h2 {
   margin: 0 0 1.5rem;
-  font-family: var(--sans); font-stretch: 112%; font-weight: 700;
-  font-size: clamp(2rem, 5vw, 3rem); line-height: 1.1; letter-spacing: -0.015em;
+  font-family: var(--display); font-weight: 700;
+  font-size: clamp(2rem, 5vw, 3rem); line-height: 1.15; letter-spacing: 0;
 }
 h2:focus { outline: none; }
 .band > div > p:first-child { margin-top: 0; }
 .band:not(.wide) > div { max-width: 46rem; }
 h3 {
   margin: 0;
-  font-family: var(--sans); font-weight: 650; font-size: 1.15rem; line-height: 1.3;
+  font-family: var(--sans); font-weight: 700; font-size: 1.1rem; line-height: 1.35;
 }
 .entry { margin-top: 2rem; }
 .entry:first-child { margin-top: 0; }
@@ -168,7 +168,7 @@ h3 {
 
 .skills { margin: 0; }
 .skills div { display: grid; grid-template-columns: 10.5rem minmax(0, 1fr); gap: 0.1rem 1.25rem; padding: 0.5rem 0; }
-.skills dt { font-family: var(--sans); font-weight: 650; font-size: 1rem; padding-top: 0.12rem; }
+.skills dt { font-family: var(--sans); font-weight: 600; font-size: 1rem; padding-top: 0.12rem; }
 .skills dd { margin: 0; }
 
 .gallery-intro { max-width: 62ch; margin: 0 0 1rem; color: var(--muted); }
@@ -222,7 +222,7 @@ h3 {
 .results li { border-bottom: 1px solid var(--line); }
 .results a { display: block; padding: 0.9rem 0; color: var(--ink); text-decoration: none; }
 .results a:hover .r-page, .results a:focus-visible .r-page { text-decoration: underline; }
-.r-page { display: block; font-family: var(--sans); font-weight: 650; color: var(--link); }
+.r-page { display: block; font-family: var(--sans); font-weight: 600; color: var(--link); }
 .r-text { display: block; margin-top: 0.2rem; font-size: 1rem; line-height: 1.5; }
 mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 .flash { animation: flash 2s ease-out; }
@@ -240,13 +240,13 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
   position: absolute; top: 50%; transform: translateY(-50%);
   width: 2.75rem; height: 2.75rem; display: grid; place-items: center;
   border: 0; border-radius: 50%; cursor: pointer;
-  background: rgb(20 43 58 / 0.72); color: #fff;
+  background: rgb(26 26 26 / 0.7); color: #fff;
 }
-.slide-arrow:hover { background: rgb(20 43 58 / 0.92); }
+.slide-arrow:hover { background: rgb(26 26 26 / 0.9); }
 .slide-arrow svg { width: 1.3rem; height: 1.3rem; }
 .slide-arrow.prev { left: 0.75rem; }
 .slide-arrow.next { right: 0.75rem; }
-.slide-bar { display: flex; align-items: center; gap: 1rem; margin-top: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
+.slide-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
 .slide-bar p { flex: 1; margin: 0; font-family: var(--serif); font-size: 1rem; line-height: 1.45; }
 .dots { display: flex; gap: 0.4rem; }
 .dots button { width: 0.7rem; height: 0.7rem; padding: 0; border: 1px solid var(--ink); border-radius: 50%; background: transparent; cursor: pointer; }
@@ -322,7 +322,7 @@ footer {
   <section class="news" aria-labelledby="news-title">
     <h2 id="news-title">News</h2>
     <ul>
-      <li><time>July 2026</time><span>Defended my M.S. thesis, <cite>Evaluation of Heat Pump Systems in an Existing Residential Building Using a Calibrated EnergyPlus Model</cite>. <a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis</a></span></li>
+      <li><time>July 2026</time><span>Defended my M.S. thesis, <cite>Field-Measurement-Based EnergyPlus Model Calibration and Its Application to Multi-Source Heat Pump Performance Evaluation in a Residential Building</cite>. <a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis</a></span></li>
       <li><time>April 2026</time><span>Presented my digital twin and co-simulation research at the NDSU Civil, Construction and Environmental Engineering department seminar.</span></li>
       <li><time>February 2026</time><span>Attended the ASHRAE Winter Conference in Las Vegas, NV, where our co-authored paper on energy-saving upgrades at Minnesota safety rest areas was presented. <a href="https://doi.org/10.63044/w26xia148" target="_blank" rel="noopener">Read the paper</a></span></li>
       <li><time>June 2025</time><span>Published and presented a paper on a multi-source heat pump co-simulation framework at the ASHRAE Annual Conference, Phoenix, AZ. <a href="https://doi.org/10.63044/s25dev35" target="_blank" rel="noopener">Read the paper</a></span></li>
@@ -424,7 +424,7 @@ footer {
 
       <h3 class="list-title">Presentations</h3>
       <ul class="pubs">
-        <li>M.S. thesis defense: <cite>Evaluation of Heat Pump Systems in an Existing Residential Building Using a Calibrated EnergyPlus Model</cite>. North Dakota State University, July 2026. <a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis on ProQuest</a></li>
+        <li>M.S. thesis defense: <cite>Field-Measurement-Based EnergyPlus Model Calibration and Its Application to Multi-Source Heat Pump Performance Evaluation in a Residential Building</cite>. North Dakota State University, July 2026. <a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis on ProQuest</a></li>
         <li>Department seminar on digital twins with co-simulation. NDSU Department of Civil, Construction and Environmental Engineering, April 2026.</li>
         <li>Oral presentation, 2025 ASHRAE Annual Conference, Phoenix, AZ, June 2025.</li>
         <li>Seminar paper: Energy Management and Indoor Air Quality Improvement with Energy Recovery Ventilation.</li>
