@@ -280,6 +280,17 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 .slide-pause:hover { background: var(--hover); }
 @media (max-width: 700px) { .slider-pair { grid-template-columns: minmax(0, 1fr); } }
 
+.connect { list-style: none; margin: 1.75rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: 0.9rem; }
+.connect a {
+  display: flex; align-items: center; gap: 0.9rem; padding: 0.9rem 1rem;
+  border: 1px solid var(--line); border-radius: 6px; color: var(--ink); text-decoration: none;
+}
+.connect a:hover { border-color: var(--ink); background: var(--hover); }
+.connect .ic { flex: none; width: 2.6rem; height: 2.6rem; display: grid; place-items: center; border-radius: 50%; background: var(--button); color: var(--button-ink); }
+.connect .ic svg { width: 1.3rem; height: 1.3rem; }
+.connect b { display: block; font-family: var(--sans); font-weight: 700; font-size: 1rem; }
+.connect .sub { display: block; font-size: 0.92rem; color: var(--link); overflow-wrap: anywhere; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -312,7 +323,7 @@ footer {
       <li><a href="#activities">Activities</a></li>
       <li><a href="#skills">Skills</a></li>
       <li id="gallery-link" hidden><a href="#gallery">Gallery</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="#contact">Connect with Me</a></li>
       <li><a class="nav-search" href="#search" aria-label="Open search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span class="tip" aria-hidden="true">Open search</span></a></li>
     </ul>
   </nav>
@@ -561,11 +572,15 @@ footer {
   </dialog>
 
   <section class="band page" id="contact">
-    <h2>Contact</h2>
+    <h2>Connect with Me</h2>
     <div>
-      <p>Email: <a href="mailto:bal.kharal@ndsu.edu">bal.kharal@ndsu.edu</a></p>
-      <p>You can also connect with me on <a href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a">LinkedIn</a>.</p>
-      <p>You can find my publications on <a href="https://scholar.google.com/citations?user=O5dIm5sAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a> and <a href="https://www.researchgate.net/profile/Bal-Krishna-Kharal" target="_blank" rel="noopener">ResearchGate</a>.</p>
+      <p>I am always happy to connect with new people. Whether you have an opportunity, an idea to work on together, or just want to chat, feel free to reach out.</p>
+      <ul class="connect">
+        <li><a href="mailto:bal.kharal@ndsu.edu"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></svg></span><span><b>Email</b><span class="sub">bal.kharal@ndsu.edu</span></span></a></li>
+        <li><a href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2"/><circle cx="17" cy="9" r="2.4"/><path d="M16.5 13.9c2.4.2 4 1.7 4.5 4.6"/></svg></span><span><b>LinkedIn</b><span class="sub">Work history and updates</span></span></a></li>
+        <li><a href="https://scholar.google.com/citations?user=O5dIm5sAAAAJ&amp;hl=en" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 10-5 10 5-10 5z"/><path d="M6 11v5c0 1.6 2.7 3 6 3s6-1.4 6-3v-5"/><path d="M22 9v6"/></svg></span><span><b>Google Scholar</b><span class="sub">Publications and citations</span></span></a></li>
+        <li><a href="https://www.researchgate.net/profile/Bal-Krishna-Kharal" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5c-.8 0-1.5-.7-1.5-1.5z"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5z"/></svg></span><span><b>ResearchGate</b><span class="sub">Papers and reports</span></span></a></li>
+      </ul>
     </div>
   </section>
 
