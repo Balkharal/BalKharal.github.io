@@ -11,17 +11,28 @@
    2. Add one line below, like the others. Keep the quotes and the comma.
       date:    year and month, like "2026-07" (photos are sorted by this)
       section: the gallery tab it goes in
-   Tabs: "Conferences and Talks", "Community and Outreach", "Undergraduate"
+   Tabs: "Conferences and Talks", "Community and Volunteering", "Sports", "Undergraduate"
+      highlight: true  also shows the photo in the Home page slideshow
    (type a new tab name and it will appear automatically).
 =========================================================== */
 var GALLERY = [
-  { file: "thesis-defense-2026.jpg", date: "2026-07", section: "Conferences and Talks", caption: "Master's thesis defense, North Dakota State University, July 2026" },
-  { file: "ccee-seminar-2026.jpg", date: "2026-04", section: "Conferences and Talks", caption: "Presenting digital twin and co-simulation research at the NDSU Civil, Construction and Environmental Engineering seminar, April 2026" },
-  { file: "ashrae-winter-las-vegas-2026.jpg", date: "2026-02", section: "Conferences and Talks", caption: "ASHRAE Winter Conference, Las Vegas, NV, January to February 2026" },
-  { file: "ashrae-annual-phoenix-2025.jpg", date: "2025-06", section: "Conferences and Talks", caption: "Oral presentation at the ASHRAE Annual Conference, Phoenix, AZ, June 2025" },
-  { file: "ashrae-winter-orlando-2025.jpg", date: "2025-02", section: "Conferences and Talks", caption: "ASHRAE Winter Conference, Orlando, FL, February 2025" },
-  { file: "simbuild-denver-2024.jpg", date: "2024-05", section: "Conferences and Talks", caption: "SimBuild 2024 Conference, Denver, CO, May 2024" },
-  { file: "party-for-the-planet-2024.jpg", date: "2024-04", section: "Community and Outreach", caption: "Sharing heat pump research with visitors at Party for the Planet, Red River Zoo, Fargo, April 2024" },
+  { file: "thesis-defense-2026.jpg", date: "2026-07", section: "Conferences and Talks", highlight: true, caption: "Master's thesis defense, North Dakota State University, July 2026" },
+  { file: "ccee-seminar-2026.jpg", date: "2026-04", section: "Conferences and Talks", highlight: true, caption: "Presenting digital twin and co-simulation research at the NDSU Civil, Construction and Environmental Engineering seminar, April 2026" },
+  { file: "ashrae-winter-las-vegas-2026.jpg", date: "2026-02", section: "Conferences and Talks", highlight: true, caption: "ASHRAE Winter Conference, Las Vegas, NV, January to February 2026" },
+  { file: "ashrae-annual-phoenix-2025.jpg", date: "2025-06", section: "Conferences and Talks", highlight: true, caption: "Oral presentation at the ASHRAE Annual Conference, Phoenix, AZ, June 2025" },
+  { file: "ashrae-winter-orlando-2025.jpg", date: "2025-02", section: "Conferences and Talks", highlight: true, caption: "ASHRAE Winter Conference, Orlando, FL, February 2025" },
+  { file: "simbuild-denver-2024.jpg", date: "2024-05", section: "Conferences and Talks", highlight: true, caption: "SimBuild 2024 Conference, Denver, CO, May 2024" },
+
+  { file: "homecoming-parade-nepal-2025.jpg", date: "2025-10", focus: "50% 80%", section: "Community and Volunteering", caption: "Representing Nepal in the NDSU Homecoming Parade, 2025" },
+  { file: "commentary-summer-event-2025.jpg", date: "2025-06", section: "Community and Volunteering", caption: "Providing live commentary at a summer sports event, June 2025" },
+  { file: "nsa-hosting-2025.jpg", date: "2025", section: "Community and Volunteering", caption: "Hosting an event as Secretary of the Nepalese Student Association (Chautaree), NDSU, 2025" },
+  { file: "homecoming-volunteer-2024.jpg", date: "2024-10", section: "Community and Volunteering", caption: "Volunteering at the NDSU Homecoming Parade, 2024" },
+  { file: "party-for-the-planet-2024.jpg", date: "2024-04", section: "Community and Volunteering", highlight: true, caption: "Sharing heat pump research with visitors at Party for the Planet, Red River Zoo, Fargo, April 2024" },
+
+  { file: "soccer-champions-fall-2026.jpg", date: "2026-10", section: "Sports", caption: "Champions of the NDSU fall soccer event, 2026" },
+  { file: "soccer-nsa-summer-2026.jpg", date: "2026-07", section: "Sports", caption: "Soccer at the NDSU Nepalese Student Association summer event, 2026" },
+  { file: "volleyball-june-2025.jpg", date: "2025-06", section: "Sports", caption: "Beach volleyball with friends at NDSU, June 2025" },
+
   { file: "undergraduate-commencement-2022.jpg", date: "2022", section: "Undergraduate", caption: "Bachelor's commencement, Tribhuvan University, 2022" },
   { file: "prototype-competition-2019.jpg", date: "2019-02", section: "Undergraduate", caption: "First place, Mechanical Prototype Competition, for a plastic waste to energy prototype, February 2019" },
 ];
@@ -463,7 +474,8 @@ footer {
         <ul>
           <li>NDSU Student Research Day, 2026</li>
           <li>Party for the Planet, Red River Zoo, Fargo: shared heat pump research with the public, April 2024</li>
-          <li>NDSU Career Expo and Homecoming Parade, 2024 to 2025</li>
+          <li>NDSU Homecoming Parade: volunteer in 2024, and represented Nepal in 2025</li>
+          <li>NDSU Career Expo, 2024 to 2025</li>
         </ul>
       </div>
 
@@ -513,7 +525,7 @@ footer {
   <section class="band wide page" id="gallery">
     <h2>Gallery</h2>
     <div>
-      <p class="gallery-intro">Conferences, talks, outreach, and my undergraduate years, newest first. Select a photo to see it larger.</p>
+      <p class="gallery-intro">Conferences and talks, community and volunteering, sports, and my undergraduate years, newest first. Select a photo to see it larger.</p>
       <div id="gallery-sections"></div>
     </div>
   </section>
@@ -561,7 +573,7 @@ footer {
     .map(function (x) { return x.p; });
   document.getElementById('gallery-link').hidden = false;
 
-  var order = ['Conferences and Talks', 'Community and Outreach', 'Undergraduate'];
+  var order = ['Conferences and Talks', 'Community and Volunteering', 'Sports', 'Undergraduate'];
   var groups = {};
   photos.forEach(function (p, i) {
     var name = p.section || 'Other';
@@ -619,6 +631,7 @@ footer {
       img.alt = p.caption || '';
       img.loading = 'lazy';
       fit(img);
+      if (p.focus) img.style.objectPosition = p.focus;
       btn.appendChild(img);
       btn.addEventListener('click', function () { open(i, groups[name]); });
       fig.appendChild(btn);
@@ -683,7 +696,10 @@ footer {
     if (e.key === 'ArrowRight') show(current + 1);
   });
 
-  // Home page slideshow: changes every 5 seconds, with previous/next, dots and pause.
+  // Home page slideshow: shows only photos marked highlight: true, changing every 3.5 seconds.
+  var reel = [];
+  photos.forEach(function (p, k) { if (p.highlight) reel.push(k); });
+  if (!reel.length) reel = photos.map(function (_, k) { return k; });
   var box = document.getElementById('slides');
   var sImg = document.getElementById('slide-img');
   var sCap = document.getElementById('slide-cap');
@@ -695,8 +711,8 @@ footer {
   box.hidden = false;
 
   function draw(i, animate) {
-    at = (i + photos.length) % photos.length;
-    var p = photos[at];
+    at = (i + reel.length) % reel.length;
+    var p = photos[reel[at]];
     function swap() {
       sImg.src = 'gallery/' + p.file;
       sImg.alt = p.caption || '';
@@ -705,24 +721,24 @@ footer {
     }
     if (animate && !calm) { sImg.classList.add('fading'); setTimeout(swap, 300); } else swap();
     [].forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === at ? 'true' : 'false'); });
-    var next = photos[(at + 1) % photos.length];
+    var next = photos[reel[(at + 1) % reel.length]];
     new Image().src = 'gallery/' + next.file;
   }
   function tick() {
     if (!paused && !hovering && !home.hidden && !document.hidden) draw(at + 1, true);
   }
-  function restart() { clearInterval(timer); if (photos.length > 1) timer = setInterval(tick, 3500); }
+  function restart() { clearInterval(timer); if (reel.length > 1) timer = setInterval(tick, 3500); }
 
-  photos.forEach(function (p, k) {
+  reel.forEach(function (_, k) {
     var d = document.createElement('button');
     d.type = 'button';
-    d.setAttribute('aria-label', 'Show photo ' + (k + 1) + ' of ' + photos.length);
+    d.setAttribute('aria-label', 'Show photo ' + (k + 1) + ' of ' + reel.length);
     d.addEventListener('click', function () { draw(k, true); restart(); });
     dots.appendChild(d);
   });
   document.getElementById('slide-prev').addEventListener('click', function () { draw(at - 1, true); restart(); });
   document.getElementById('slide-next').addEventListener('click', function () { draw(at + 1, true); restart(); });
-  document.getElementById('slide-open').addEventListener('click', function () { open(at); });
+  document.getElementById('slide-open').addEventListener('click', function () { open(reel[at], reel); });
   pauseBtn.textContent = paused ? 'Play' : 'Pause';
   pauseBtn.addEventListener('click', function () {
     paused = !paused;
@@ -735,7 +751,7 @@ footer {
   frame.addEventListener('focusin', function () { hovering = true; });
   frame.addEventListener('focusout', function () { hovering = false; });
 
-  if (photos.length < 2) {
+  if (reel.length < 2) {
     ['slide-prev', 'slide-next'].forEach(function (id) { document.getElementById(id).hidden = true; });
     dots.hidden = true;
     pauseBtn.hidden = true;
