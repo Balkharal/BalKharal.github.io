@@ -161,6 +161,7 @@ h3 {
 .pubs { list-style: none; margin: 0; padding: 0; }
 .pubs li + li { margin-top: 1.1rem; }
 .pubs cite { font-style: italic; }
+.pubs a, .news a { overflow-wrap: anywhere; }
 .list-title { margin: 2.5rem 0 1rem; font-size: 1.3rem; }
 .band > div > .list-title:first-child { margin-top: 0; }
 
@@ -307,6 +308,7 @@ footer {
       </ul>
       <div class="actions">
         <a class="btn primary" href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a">Connect on LinkedIn</a>
+        <a class="btn" href="https://scholar.google.com/citations?user=O5dIm5sAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>
       </div>
     </div>
   </div>
@@ -321,8 +323,8 @@ footer {
     <ul>
       <li><time>July 2026</time><span>Defended my M.S. thesis, <cite>Evaluation of Heat Pump Systems in an Existing Residential Building Using a Calibrated EnergyPlus Model</cite>.</span></li>
       <li><time>April 2026</time><span>Presented my digital twin and co-simulation research at the NDSU Civil, Construction and Environmental Engineering department seminar.</span></li>
-      <li><time>February 2026</time><span>Attended the ASHRAE Winter Conference in Las Vegas, NV, with a paper on energy-saving upgrades at Minnesota safety rest areas.</span></li>
-      <li><time>June 2025</time><span>Gave an oral presentation on a multi-source heat pump co-simulation framework at the ASHRAE Annual Conference, Phoenix, AZ.</span></li>
+      <li><time>February 2026</time><span>Attended the ASHRAE Winter Conference in Las Vegas, NV, where our co-authored paper on energy-saving upgrades at Minnesota safety rest areas was presented. <a href="https://doi.org/10.63044/w26xia148" target="_blank" rel="noopener">Read the paper</a></span></li>
+      <li><time>June 2025</time><span>Published and presented a paper on a multi-source heat pump co-simulation framework at the ASHRAE Annual Conference, Phoenix, AZ. <a href="https://doi.org/10.63044/s25dev35" target="_blank" rel="noopener">Read the paper</a></span></li>
       <li><time>February 2025</time><span>Attended the ASHRAE Winter Conference, Orlando, FL.</span></li>
       <li><time>May 2024</time><span>Attended the SimBuild 2024 Conference, Denver, CO.</span></li>
       <li><time>April 2024</time><span>Shared heat pump research with the public at Party for the Planet, Red River Zoo, Fargo.</span></li>
@@ -414,8 +416,8 @@ footer {
     <div>
       <h3 class="list-title">Publications</h3>
       <ul class="pubs">
-        <li>Kharal, B. K., et al. (2026). Energy-Saving Potential of Sustainable Energy Building Upgrades at Safety Rest Areas in Minnesota. <cite>ASHRAE Winter Conference</cite>, Las Vegas, NV.</li>
-        <li>Kharal, B. K., et al. (2025). Development of a Multi-Source Heat Pump System Using EnergyPlus/Modelica Co-Simulation Framework for Residential Buildings. <cite>ASHRAE Annual Conference</cite>, Phoenix, AZ.</li>
+        <li>Kharal, B. K., et al. (2026). Energy-Saving Potential of Sustainable Energy Building Upgrades at Safety Rest Areas in Minnesota. <cite>ASHRAE Winter Conference</cite>, Las Vegas, NV. <a href="https://doi.org/10.63044/w26xia148" target="_blank" rel="noopener">doi.org/10.63044/w26xia148</a></li>
+        <li>Kharal, B. K., et al. (2025). Development of a Multi-Source Heat Pump System Using EnergyPlus/Modelica Co-Simulation Framework for Residential Buildings. <cite>ASHRAE Annual Conference</cite>, Phoenix, AZ. <a href="https://doi.org/10.63044/s25dev35" target="_blank" rel="noopener">doi.org/10.63044/s25dev35</a></li>
         <li>Kharal, B. K. Energy Recovery Ventilation. <cite>Industrial Vision</cite>, Vol. 8.</li>
       </ul>
 
@@ -528,6 +530,7 @@ footer {
     <h2>Contact</h2>
     <div>
       <p>The best way to reach me is on <a href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a">LinkedIn</a>.</p>
+      <p>You can find my publications on <a href="https://scholar.google.com/citations?user=O5dIm5sAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>.</p>
     </div>
   </section>
 
@@ -705,7 +708,7 @@ footer {
   function tick() {
     if (!paused && !hovering && !home.hidden && !document.hidden) draw(at + 1, true);
   }
-  function restart() { clearInterval(timer); if (photos.length > 1) timer = setInterval(tick, 5000); }
+  function restart() { clearInterval(timer); if (photos.length > 1) timer = setInterval(tick, 3500); }
 
   photos.forEach(function (p, k) {
     var d = document.createElement('button');
