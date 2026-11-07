@@ -11,7 +11,7 @@
    2. Add one line below, like the others. Keep the quotes and the comma.
       date:    year and month, like "2026-07" (photos are sorted by this)
       section: the gallery tab it goes in
-   Tabs: "Conferences and Talks", "Community and Volunteering", "Sports", "Undergraduate"
+   Tabs: "Conferences and Talks", "Industrial Visits", "Community and Volunteering", "Sports", "Undergraduate"
       highlight: true  also shows the photo in the Home page slideshow
    (type a new tab name and it will appear automatically).
 =========================================================== */
@@ -22,6 +22,14 @@ var GALLERY = [
   { file: "ashrae-annual-phoenix-2025.jpg", date: "2025-06", section: "Conferences and Talks", highlight: true, caption: "Oral presentation at the ASHRAE Annual Conference, Phoenix, AZ, June 2025" },
   { file: "ashrae-winter-orlando-2025.jpg", date: "2025-02", section: "Conferences and Talks", highlight: true, caption: "ASHRAE Winter Conference, Orlando, FL, February 2025" },
   { file: "simbuild-denver-2024.jpg", date: "2024-05", section: "Conferences and Talks", highlight: true, caption: "SimBuild 2024 Conference, Denver, CO, May 2024" },
+
+  { file: "visit-ethanol-plant-2026.jpg", date: "2026-09", section: "Industrial Visits", caption: "Ethanol plant visit, North Dakota, September 2026" },
+  { file: "visit-wind-farm-2026.jpg", date: "2026-08", focus: "50% 55%", section: "Industrial Visits", highlight: true, caption: "Inside a wind turbine tower section at a wind farm, Bison to Bakken tour, August 2026" },
+  { file: "visit-wind-turbine-crane-2026.jpg", date: "2026-08", section: "Industrial Visits", caption: "Wind turbine construction site with a heavy-lift crane, Bison to Bakken tour, August 2026" },
+  { file: "visit-coal-mine-2026.jpg", date: "2026-08", section: "Industrial Visits", highlight: true, caption: "Standing in a dragline bucket at a North Dakota coal mine, Bison to Bakken tour, August 2026" },
+  { file: "visit-power-plant-2026.jpg", date: "2026-08", section: "Industrial Visits", highlight: true, caption: "Inside a power plant turbine hall, Bison to Bakken tour, August 2026" },
+  { file: "visit-power-station-2026.jpg", date: "2026-08", section: "Industrial Visits", caption: "Power station visit, Bison to Bakken tour, August 2026" },
+  { file: "visit-manufacturing-2026.jpg", date: "2026-08", section: "Industrial Visits", caption: "On the way to a manufacturing company visit, Bison to Bakken tour, August 2026" },
 
   { file: "homecoming-parade-nepal-2025.jpg", date: "2025-10", focus: "50% 80%", section: "Community and Volunteering", caption: "Representing Nepal in the NDSU Homecoming Parade, 2025" },
   { file: "commentary-summer-event-2025.jpg", date: "2025-06", section: "Community and Volunteering", caption: "Providing live commentary at a summer sports event, June 2025" },
@@ -334,6 +342,7 @@ footer {
   <section class="news" aria-labelledby="news-title">
     <h2 id="news-title">News</h2>
     <ul>
+      <li><time>August 2026</time><span>Toured wind, coal, power generation, ethanol, and manufacturing sites across North Dakota on the Bison to Bakken energy tour.</span></li>
       <li><time>July 2026</time><span>Defended my M.S. thesis, <cite>Field-Measurement-Based EnergyPlus Model Calibration and Its Application to Multi-Source Heat Pump Performance Evaluation in a Residential Building</cite>. <a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis</a></span></li>
       <li><time>April 2026</time><span>Presented my digital twin and co-simulation research at the NDSU Civil, Construction and Environmental Engineering department seminar.</span></li>
       <li><time>February 2026</time><span>Attended the ASHRAE Winter Conference in Las Vegas, NV, where our co-authored paper on energy-saving upgrades at Minnesota safety rest areas was presented. <a href="https://doi.org/10.63044/w26xia148" target="_blank" rel="noopener">Read the paper</a></span></li>
@@ -470,8 +479,9 @@ footer {
         <p>Secretary, April 2025 to April 2026</p>
       </div>
       <div class="entry">
-        <h3>Volunteering and outreach</h3>
+        <h3>Volunteering, outreach, and tours</h3>
         <ul>
+          <li>Bison to Bakken energy tour: wind, coal, power generation, ethanol, and manufacturing sites across North Dakota, 2026</li>
           <li>NDSU Student Research Day, 2026</li>
           <li>Party for the Planet, Red River Zoo, Fargo: shared heat pump research with the public, April 2024</li>
           <li>NDSU Homecoming Parade: volunteer in 2024, and represented Nepal in 2025</li>
@@ -525,7 +535,7 @@ footer {
   <section class="band wide page" id="gallery">
     <h2>Gallery</h2>
     <div>
-      <p class="gallery-intro">Conferences and talks, community and volunteering, sports, and my undergraduate years, newest first. Select a photo to see it larger.</p>
+      <p class="gallery-intro">Conferences and talks, industrial visits, community and volunteering, sports, and my undergraduate years, newest first. Select a photo to see it larger.</p>
       <div id="gallery-sections"></div>
     </div>
   </section>
@@ -573,7 +583,7 @@ footer {
     .map(function (x) { return x.p; });
   document.getElementById('gallery-link').hidden = false;
 
-  var order = ['Conferences and Talks', 'Community and Volunteering', 'Sports', 'Undergraduate'];
+  var order = ['Conferences and Talks', 'Industrial Visits', 'Community and Volunteering', 'Sports', 'Undergraduate'];
   var groups = {};
   photos.forEach(function (p, i) {
     var name = p.section || 'Other';
@@ -586,7 +596,7 @@ footer {
     img.addEventListener('load', function () {
       var r = img.naturalWidth / img.naturalHeight;
       if (r < 1) img.classList.add('tall');
-      else if (r > 1.7) img.classList.add('wide');
+      else if (r > 1.9) img.classList.add('wide');
     });
   }
 
