@@ -332,6 +332,15 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 :root[data-dark="true"] .theme-toggle .icon-moon { display: none; }
 .theme-toggle:hover .tip, .theme-toggle:focus-visible .tip { opacity: 1; visibility: visible; }
 
+.projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.project { display: flex; flex-direction: column; padding: 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: 6px; }
+.project h3 { font-size: 1.1rem; }
+.project p { margin: 0.5rem 0 0; font-size: 0.98rem; line-height: 1.6; }
+.project .meta { margin-top: 0.25rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; margin: 0.9rem 0 0; padding: 0; }
+.tags li { padding: 0.15rem 0.55rem; border-radius: 999px; background: var(--hover); font-family: var(--sans); font-size: 0.8rem; }
+.project-links { margin-top: auto !important; padding-top: 0.9rem; font-family: var(--sans); font-size: 0.95rem; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -359,6 +368,7 @@ footer {
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#research">Research</a></li>
+      <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#activities">Activities</a></li>
@@ -455,6 +465,61 @@ footer {
       <div class="entry">
         <h3>EnergyPlus and Modelica co-simulation</h3>
         <p>I use Spawn of EnergyPlus to connect detailed building models with dynamic HVAC and control models.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="band wide page" id="projects">
+    <h2>Projects</h2>
+    <div>
+      <p class="gallery-intro">Selected research and student projects, newest first.</p>
+      <div class="projects">
+        <article class="project">
+          <h3>AI-assisted calibration of a residential energy model</h3>
+          <p class="meta">Ph.D. research, 2026, journal paper submitted</p>
+          <p>An automated workflow that calibrates an EnergyPlus model of an occupied house against field measurements. It combines Morris sensitivity screening, genetic algorithm optimization, and an AI agent that runs and checks the simulations.</p>
+          <ul class="tags"><li>EnergyPlus</li><li>Python</li><li>Sensitivity analysis</li><li>Genetic algorithm</li><li>AI agents</li></ul>
+        </article>
+        <article class="project">
+          <h3>Model calibration and heat pump evaluation in an occupied house</h3>
+          <p class="meta">M.S. thesis, 2026</p>
+          <p>Calibrated an EnergyPlus model of a residential building using field measurements, following ASHRAE Guideline 14, then used it to compare heat pump options, including a multi-source heat pump.</p>
+          <ul class="tags"><li>EnergyPlus</li><li>OpenStudio</li><li>ASHRAE Guideline 14</li><li>Field data</li></ul>
+          <p class="project-links"><a href="https://www.proquest.com/docview/3403401847" target="_blank" rel="noopener">Read the thesis</a></p>
+        </article>
+        <article class="project">
+          <h3>Field study of North Dakota’s energy system</h3>
+          <p class="meta">Bison to the Bakken report, 2026</p>
+          <p>A report from a field tour of wind, coal, power generation, ethanol, and manufacturing sites, following energy in North Dakota from production to end use.</p>
+          <ul class="tags"><li>Energy systems</li><li>Field visits</li><li>Technical writing</li></ul>
+          <p class="project-links"><a href="https://doi.org/10.13140/RG.2.2.33053.88808" target="_blank" rel="noopener">Read the report</a></p>
+        </article>
+        <article class="project">
+          <h3>Section 179D energy modeling for high schools</h3>
+          <p class="meta">Graduate research</p>
+          <p>Built ASHRAE 90.1 Appendix G baseline and proposed energy models for two large high schools in Minnesota to support Section 179D tax deduction evaluations.</p>
+          <ul class="tags"><li>EnergyPlus</li><li>OpenStudio</li><li>ASHRAE 90.1 Appendix G</li></ul>
+        </article>
+        <article class="project">
+          <h3>Energy upgrades at Minnesota safety rest areas</h3>
+          <p class="meta">Graduate research, paper 2026</p>
+          <p>Assessed HVAC conditions on site, built simulation models from field data, and compared the costs and benefits of sustainable energy upgrades.</p>
+          <ul class="tags"><li>Site assessment</li><li>Energy modeling</li><li>Cost-benefit analysis</li></ul>
+          <p class="project-links"><a href="https://doi.org/10.63044/w26xia148" target="_blank" rel="noopener">Read the paper</a></p>
+        </article>
+        <article class="project">
+          <h3>Multi-source heat pump co-simulation framework</h3>
+          <p class="meta">Graduate research, paper 2025</p>
+          <p>Developed a Spawn of EnergyPlus framework that links an EnergyPlus building model with Modelica HVAC and control models to simulate a heat pump that can draw on more than one source.</p>
+          <ul class="tags"><li>EnergyPlus</li><li>Modelica</li><li>Spawn of EnergyPlus</li><li>Python</li></ul>
+          <p class="project-links"><a href="https://doi.org/10.63044/s25dev35" target="_blank" rel="noopener">Read the paper</a></p>
+        </article>
+        <article class="project">
+          <h3>Plastic waste to energy prototype</h3>
+          <p class="meta">Undergraduate project, 2019, first place</p>
+          <p>Designed and built a prototype that converts plastic waste into usable energy. It won first place in a mechanical prototype competition.</p>
+          <ul class="tags"><li>Prototyping</li><li>Mechanical design</li></ul>
+        </article>
       </div>
     </div>
   </section>
@@ -896,7 +961,7 @@ footer {
   var status = document.getElementById('search-status');
   var list = document.getElementById('search-results');
   var pending = null;
-  var picks = '.role, .degrees li, .bio p, .interests li, .news li, .entry, .band > div > p, .pubs li, .skills > div, .grid figure';
+  var picks = '.role, .degrees li, .bio p, .interests li, .news li, .entry, .project, .band > div > p, .pubs li, .skills > div, .grid figure';
 
   function blocks() {
     var out = [];
