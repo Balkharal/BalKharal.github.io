@@ -253,9 +253,13 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 .slides { margin-top: 3rem; }
 .slides [hidden] { display: none !important; }
 .slides h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin-bottom: 1rem; }
+.slider-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem; }
+.slider-pair.single { grid-template-columns: minmax(0, 1fr); }
+.slider { min-width: 0; }
 .slide-frame { position: relative; margin: 0; }
 .slide-btn-img { display: block; width: 100%; padding: 0; border: 0; background: var(--hover); border-radius: 6px; overflow: hidden; cursor: zoom-in; }
-.slide-btn-img img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: contain; transition: opacity 0.6s ease; }
+.slide-btn-img img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: opacity 0.6s ease; }
+.slide-btn-img img.tall { object-position: 50% 22%; }
 .slide-btn-img img.fading { opacity: 0; }
 .slide-arrow {
   position: absolute; top: 50%; transform: translateY(-50%);
@@ -267,14 +271,14 @@ mark { background: #f3dc8a; color: #142b3a; padding: 0 0.1em; }
 .slide-arrow svg { width: 1.3rem; height: 1.3rem; }
 .slide-arrow.prev { left: 0.75rem; }
 .slide-arrow.next { right: 0.75rem; }
-.slide-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin-top: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
-.slide-bar p { flex: 1; margin: 0; font-family: var(--serif); font-size: 1rem; line-height: 1.45; }
-.dots { display: flex; gap: 0.4rem; }
-.dots button { width: 0.7rem; height: 0.7rem; padding: 0; border: 1px solid var(--ink); border-radius: 50%; background: transparent; cursor: pointer; }
+.dots { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.45rem; margin-top: 0.9rem; }
+.dots button { width: 0.65rem; height: 0.65rem; padding: 0; border: 0; border-radius: 50%; background: #b9c0c6; cursor: pointer; }
 .dots button[aria-current="true"] { background: var(--ink); }
-.slide-pause { font: inherit; font-weight: 600; padding: 0.3rem 0.7rem; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+.slide-cap { margin: 0.6rem 0 0; font-size: 0.98rem; line-height: 1.5; text-align: center; }
+.slides-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; margin-top: 1.25rem; font-family: var(--sans); font-size: 0.95rem; }
+.slide-pause { font: inherit; font-weight: 600; padding: 0.3rem 0.8rem; border: 1px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
 .slide-pause:hover { background: var(--hover); }
-.slides .all { display: inline-block; margin-top: 0.75rem; font-family: var(--sans); font-size: 0.95rem; }
+@media (max-width: 700px) { .slider-pair { grid-template-columns: minmax(0, 1fr); } }
 
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
@@ -354,19 +358,13 @@ footer {
     </ul>
   </section>
 
-  <section class="slides" id="slides" aria-roledescription="carousel" aria-labelledby="slides-title" hidden>
+  <section class="slides" id="slides" aria-labelledby="slides-title" hidden>
     <h2 id="slides-title">Highlights</h2>
-    <div class="slide-frame">
-      <button type="button" class="slide-btn-img" id="slide-open"><img id="slide-img" alt=""></button>
-      <button type="button" class="slide-arrow prev" id="slide-prev" aria-label="Previous photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
-      <button type="button" class="slide-arrow next" id="slide-next" aria-label="Next photo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
-    </div>
-    <div class="slide-bar">
-      <p id="slide-cap" aria-live="polite"></p>
-      <div class="dots" id="slide-dots"></div>
+    <div class="slider-pair" id="slider-pair"></div>
+    <div class="slides-foot">
       <button type="button" class="slide-pause" id="slide-pause">Pause</button>
+      <a class="all" href="#gallery">See all photos</a>
     </div>
-    <a class="all" href="#gallery">See all photos</a>
   </section>
 </section>
 
@@ -711,68 +709,103 @@ footer {
     if (e.key === 'ArrowRight') show(current + 1);
   });
 
-  // Home page slideshow: shows only photos marked highlight: true, changing every 3.5 seconds.
-  var reel = [];
-  photos.forEach(function (p, k) { if (p.highlight) reel.push(k); });
-  if (!reel.length) reel = photos.map(function (_, k) { return k; });
+  // Home page highlights: two slideshows side by side (talks on the left, everything else on the right).
+  // Only photos marked highlight: true are used. Each changes every 3.5 seconds, offset from the other.
   var box = document.getElementById('slides');
-  var sImg = document.getElementById('slide-img');
-  var sCap = document.getElementById('slide-cap');
-  var dots = document.getElementById('slide-dots');
+  var pair = document.getElementById('slider-pair');
   var pauseBtn = document.getElementById('slide-pause');
   var home = document.getElementById('home');
   var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var at = 0, timer = null, paused = calm, hovering = false;
+  var paused = calm;
+  var arrowL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>';
+  var arrowR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
+
+  var picked = [];
+  photos.forEach(function (p, k) { if (p.highlight) picked.push(k); });
+  if (!picked.length) picked = photos.map(function (_, k) { return k; });
+  var left = picked.filter(function (k) { return photos[k].section === 'Conferences and Talks'; });
+  var right = picked.filter(function (k) { return photos[k].section !== 'Conferences and Talks'; });
+  var reels = [left, right].filter(function (r) { return r.length; });
+  if (reels.length === 1) pair.classList.add('single');
   box.hidden = false;
 
-  function draw(i, animate) {
-    at = (i + reel.length) % reel.length;
-    var p = photos[reel[at]];
-    function swap() {
-      sImg.src = 'gallery/' + p.file;
-      sImg.alt = p.caption || '';
-      sCap.textContent = p.caption || '';
-      sImg.classList.remove('fading');
-    }
-    if (animate && !calm) { sImg.classList.add('fading'); setTimeout(swap, 300); } else swap();
-    [].forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === at ? 'true' : 'false'); });
-    var next = photos[reel[(at + 1) % reel.length]];
-    new Image().src = 'gallery/' + next.file;
-  }
-  function tick() {
-    if (!paused && !hovering && !home.hidden && !document.hidden) draw(at + 1, true);
-  }
-  function restart() { clearInterval(timer); if (reel.length > 1) timer = setInterval(tick, 3500); }
+  var sliders = reels.map(function (reel, n) {
+    var el = document.createElement('div');
+    el.className = 'slider';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-roledescription', 'carousel');
+    el.setAttribute('aria-label', n === 0 && left.length ? 'Conferences and talks' : 'Field visits and outreach');
+    el.innerHTML =
+      '<div class="slide-frame">' +
+        '<button type="button" class="slide-btn-img"><img alt=""></button>' +
+        '<button type="button" class="slide-arrow prev" aria-label="Previous photo">' + arrowL + '</button>' +
+        '<button type="button" class="slide-arrow next" aria-label="Next photo">' + arrowR + '</button>' +
+      '</div>' +
+      '<div class="dots"></div>' +
+      '<p class="slide-cap" aria-live="polite"></p>';
+    pair.appendChild(el);
 
-  reel.forEach(function (_, k) {
-    var d = document.createElement('button');
-    d.type = 'button';
-    d.setAttribute('aria-label', 'Show photo ' + (k + 1) + ' of ' + reel.length);
-    d.addEventListener('click', function () { draw(k, true); restart(); });
-    dots.appendChild(d);
+    var img = el.querySelector('img'), cap = el.querySelector('.slide-cap'), dots = el.querySelector('.dots');
+    var at = 0, hovering = false;
+    img.addEventListener('load', function () {
+      img.classList.toggle('tall', img.naturalWidth < img.naturalHeight);
+    });
+    function draw(i, animate) {
+      at = (i + reel.length) % reel.length;
+      var p = photos[reel[at]];
+      function swap() {
+        img.src = 'gallery/' + p.file;
+        img.alt = p.caption || '';
+        img.style.objectPosition = p.focus || '';
+        cap.textContent = p.caption || '';
+        img.classList.remove('fading');
+      }
+      if (animate && !calm) { img.classList.add('fading'); setTimeout(swap, 300); } else swap();
+      [].forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === at ? 'true' : 'false'); });
+      new Image().src = 'gallery/' + photos[reel[(at + 1) % reel.length]].file;
+    }
+    reel.forEach(function (_, k) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Show photo ' + (k + 1) + ' of ' + reel.length);
+      d.addEventListener('click', function () { draw(k, true); });
+      dots.appendChild(d);
+    });
+    el.querySelector('.prev').addEventListener('click', function () { draw(at - 1, true); });
+    el.querySelector('.next').addEventListener('click', function () { draw(at + 1, true); });
+    el.querySelector('.slide-btn-img').addEventListener('click', function () { open(reel[at], reel); });
+    var frame = el.querySelector('.slide-frame');
+    frame.addEventListener('mouseenter', function () { hovering = true; });
+    frame.addEventListener('mouseleave', function () { hovering = false; });
+    frame.addEventListener('focusin', function () { hovering = true; });
+    frame.addEventListener('focusout', function () { hovering = false; });
+    if (reel.length < 2) {
+      el.querySelector('.prev').hidden = true;
+      el.querySelector('.next').hidden = true;
+      dots.hidden = true;
+    }
+    draw(0, false);
+    return {
+      step: function () {
+        if (reel.length > 1 && !paused && !hovering && !home.hidden && !document.hidden) draw(at + 1, true);
+      }
+    };
   });
-  document.getElementById('slide-prev').addEventListener('click', function () { draw(at - 1, true); restart(); });
-  document.getElementById('slide-next').addEventListener('click', function () { draw(at + 1, true); restart(); });
-  document.getElementById('slide-open').addEventListener('click', function () { open(reel[at], reel); });
+
+  // One timer for both, so the two sides change at alternating moments.
+  var turn = 0;
+  if (picked.length > 1) setInterval(function () {
+    var s = sliders[turn % sliders.length];
+    if (s) s.step();
+    turn++;
+  }, 1750);
+
   pauseBtn.textContent = paused ? 'Play' : 'Pause';
   pauseBtn.addEventListener('click', function () {
     paused = !paused;
     pauseBtn.textContent = paused ? 'Play' : 'Pause';
-    if (!paused) restart();
   });
-  var frame = box.querySelector('.slide-frame');
-  frame.addEventListener('mouseenter', function () { hovering = true; });
-  frame.addEventListener('mouseleave', function () { hovering = false; });
-  frame.addEventListener('focusin', function () { hovering = true; });
-  frame.addEventListener('focusout', function () { hovering = false; });
-
-  if (reel.length < 2) {
-    ['slide-prev', 'slide-next'].forEach(function (id) { document.getElementById(id).hidden = true; });
-    dots.hidden = true;
-    pauseBtn.hidden = true;
-  }
-  draw(0, false);
-  restart();
+  if (picked.length < 2) pauseBtn.hidden = true;
 })();
 </script>
 <script>
