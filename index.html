@@ -167,7 +167,10 @@ h1 {
 .email { margin: 1rem 0 0; }
 .degrees b { font-family: var(--sans); font-weight: 600; }
 .intro-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 27rem); gap: 1.5rem 2.5rem; align-items: start; margin-top: 2.5rem; }
-.bio { max-width: none; margin: 0; }
+.bio { max-width: none; margin: 1rem 0 0; }
+.education h2 { margin: 0 0 0.5rem; font-size: clamp(1.6rem, 3.5vw, 2.1rem); }
+.education .degrees { margin: 0; }
+.education .degrees li { padding: 0.45rem 0; }
 .interests { padding: 1.25rem 1.4rem; background: var(--hover); border-left: 4px solid var(--link); border-radius: 6px; }
 .interests h2 { margin: 0 0 0.75rem; font-size: 1.25rem; }
 .interests ul { margin: 0; padding-left: 1.1rem; }
@@ -411,11 +414,10 @@ footer {
     </div>
     <div class="profile-text">
       <h1>Bal Krishna Kharal</h1>
-      <ul class="degrees">
-        <li><b>Ph.D. in Civil Engineering</b>, North Dakota State University, Fargo, ND, USA, Jan 2024 to Dec 2027 (Expected)</li>
-        <li><b>M.S. in Construction Management</b>, North Dakota State University, Fargo, ND, USA (2024 to 2026)</li>
-        <li><b>B.E. in Industrial Engineering</b>, Tribhuvan University, Institute of Engineering, Thapathali Campus, Kathmandu, Nepal (2017 to 2021)</li>
-      </ul>
+      <div class="bio">
+        <p>I study how heat pumps and HVAC systems perform in real buildings. My research combines building energy simulation, measured data, and EnergyPlus and Modelica co-simulation to compare air-source, ground-source, and multi-source heat pump systems, with a focus on cold climates.</p>
+        <p>Before my Ph.D., I worked as an HVAC engineer at Thermotech Pvt. Ltd. in Kathmandu, Nepal, designing and commissioning systems for residential, commercial, and industrial buildings. I am open to energy modeling and HVAC roles.</p>
+      </div>
       <p class="email">Email: <a href="mailto:bal.kharal@ndsu.edu">bal.kharal@ndsu.edu</a></p>
       <div class="actions">
         <a class="btn primary" href="https://www.linkedin.com/in/bal-krishna-kharal-b3676816a">Connect on LinkedIn</a>
@@ -424,10 +426,14 @@ footer {
   </div>
 
   <div class="intro-row">
-    <div class="bio">
-      <p>I study how heat pumps and HVAC systems perform in real buildings. My research combines building energy simulation, measured data, and EnergyPlus and Modelica co-simulation to compare air-source, ground-source, and multi-source heat pump systems, with a focus on cold climates.</p>
-      <p>Before my Ph.D., I worked as an HVAC engineer at Thermotech Pvt. Ltd. in Kathmandu, Nepal, designing and commissioning systems for residential, commercial, and industrial buildings. I am open to energy modeling and HVAC roles.</p>
-    </div>
+    <section class="education" aria-labelledby="education-title">
+      <h2 id="education-title">Education</h2>
+      <ul class="degrees">
+        <li><b>Ph.D. in Civil Engineering</b>, North Dakota State University, Fargo, ND, USA, Jan 2024 to Dec 2027 (Expected)</li>
+        <li><b>M.S. in Construction Management</b>, North Dakota State University, Fargo, ND, USA (2024 to 2026)</li>
+        <li><b>B.E. in Industrial Engineering</b>, Tribhuvan University, Institute of Engineering, Thapathali Campus, Kathmandu, Nepal (2017 to 2021)</li>
+      </ul>
+    </section>
     <aside class="interests" aria-labelledby="interests-title">
       <h2 id="interests-title">Research interests</h2>
       <ul>
