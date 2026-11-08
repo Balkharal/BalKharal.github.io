@@ -373,6 +373,7 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 
 .exp-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 25rem); gap: 1.5rem 2.75rem; align-items: start; }
 .exp-list { max-width: 46rem; }
+.exp-list > .list-title:first-child { margin-top: 0; }
 .skills-box { position: sticky; top: 5.5rem; padding: 1.25rem 1.4rem; background: var(--hover); border-left: 4px solid var(--link); border-radius: 6px; }
 .skills-box h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
 .skills-box .skills div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; padding: 0.55rem 0; border-top: 1px solid var(--line); }
@@ -380,6 +381,11 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 .skills-box dt { font-size: 0.95rem; }
 .skills-box dd { font-size: 0.95rem; line-height: 1.5; }
 @media (max-width: 900px) { .exp-row { grid-template-columns: minmax(0, 1fr); } .skills-box { position: static; } }
+
+.side-list { margin: 0.25rem 0 0; padding-left: 1.1rem; }
+.side-list li { padding: 0.25rem 0; font-size: 0.98rem; line-height: 1.5; }
+.side-list li::marker { color: var(--link); }
+.side-note { margin: 0.9rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--line); font-size: 0.98rem; line-height: 1.6; font-style: italic; }
 
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
@@ -629,64 +635,77 @@ footer {
   </section>
 
 
-  <section class="band page" id="activities">
+  <section class="band wide page" id="activities">
     <h2>Leadership and activities</h2>
-    <div>
-      <h3 class="list-title">At North Dakota State University</h3>
-      <div class="entry">
-        <h3>NDSU Graduate Student Council</h3>
-        <ul>
-          <li>College of Engineering Representative, 2026 to 2027</li>
-          <li>Civil Engineering Representative, 2025 to 2026</li>
-          <li>Finance Committee Member, November 2024 to August 2025</li>
+    <div class="exp-row">
+      <div class="exp-list">
+        <h3 class="list-title">At North Dakota State University</h3>
+        <div class="entry">
+          <h3>NDSU Graduate Student Council</h3>
+          <ul>
+            <li>College of Engineering Representative, 2026 to 2027</li>
+            <li>Civil Engineering Representative, 2025 to 2026</li>
+            <li>Finance Committee Member, November 2024 to August 2025</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>Nepalese Student Association (Chautaree), NDSU</h3>
+          <p>Secretary, April 2025 to April 2026</p>
+        </div>
+        <div class="entry">
+          <h3>Volunteering, outreach, and tours</h3>
+          <ul>
+            <li>Bison to Bakken energy tour: wind, coal, power generation, ethanol, and manufacturing sites across North Dakota, 2026 (<a href="https://www.researchgate.net/publication/417611959_Bison_to_the_Bakken_A_Field_Study_of_North_Dakota%27s_Energy_System_from_Production_to_End_Use" target="_blank" rel="noopener">report</a>)</li>
+            <li>NDSU Student Research Day, 2026</li>
+            <li>Party for the Planet, Red River Zoo, Fargo: shared heat pump research with the public, April 2024</li>
+            <li>NDSU Homecoming Parade: volunteer in 2024, and represented Nepal in 2025</li>
+            <li>NDSU Career Expo, 2024 to 2025</li>
+          </ul>
+        </div>
+
+        <h3 class="list-title">In Nepal</h3>
+        <div class="entry">
+          <h3>Society of Industrial Engineering Students (SOIES) Nepal</h3>
+          <ul>
+            <li>Secretary, 2020 to 2021</li>
+            <li>Executive Committee Member, 2019 to 2020</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>NxtGen event</h3>
+          <p>Public Relations Volunteer, 2020 to 2022</p>
+        </div>
+        <div class="entry">
+          <h3>Pioneer Higher Educational Academy, Syangja</h3>
+          <p>President, Student Intelligence Organization, 2015 to 2017</p>
+        </div>
+
+        <h3 class="list-title">Professional memberships</h3>
+        <ul class="pubs">
+          <li>Student Member, American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)</li>
+          <li>Student Member, Association of Energy Engineers (AEE)</li>
+          <li>Member, Sigma Lambda Chi International Construction Honor Society, PI II Chapter</li>
+        </ul>
+
+        <h3 class="list-title">Awards</h3>
+        <ul class="pubs">
+          <li>Champion, Summer 2026 NDSU Graduate School Writing Challenge, 2026 (<a href="certificates/writing-challenge-champion-2026.pdf" target="_blank" rel="noopener">certificate</a>)</li>
+          <li>First place, Mechanical Prototype Competition (plastic waste to energy), 2019</li>
+          <li>Merit-based scholarship, Institute of Engineering entrance exam, Tribhuvan University, 2017</li>
+          <li>Fully funded merit-based scholarship, higher secondary education, 2015</li>
         </ul>
       </div>
-      <div class="entry">
-        <h3>Nepalese Student Association (Chautaree), NDSU</h3>
-        <p>Secretary, April 2025 to April 2026</p>
-      </div>
-      <div class="entry">
-        <h3>Volunteering, outreach, and tours</h3>
-        <ul>
-          <li>Bison to Bakken energy tour: wind, coal, power generation, ethanol, and manufacturing sites across North Dakota, 2026 (<a href="https://www.researchgate.net/publication/417611959_Bison_to_the_Bakken_A_Field_Study_of_North_Dakota%27s_Energy_System_from_Production_to_End_Use" target="_blank" rel="noopener">report</a>)</li>
-          <li>NDSU Student Research Day, 2026</li>
-          <li>Party for the Planet, Red River Zoo, Fargo: shared heat pump research with the public, April 2024</li>
-          <li>NDSU Homecoming Parade: volunteer in 2024, and represented Nepal in 2025</li>
-          <li>NDSU Career Expo, 2024 to 2025</li>
+      <aside class="skills-box" aria-labelledby="personal-title">
+        <h2 id="personal-title">Personal interests</h2>
+        <ul class="side-list">
+          <li>Playing sports and watching games</li>
+          <li>Exploring new places</li>
+          <li>Spending time with family and friends</li>
+          <li>Participating in cultural events</li>
+          <li>Learning something new</li>
         </ul>
-      </div>
-
-      <h3 class="list-title">In Nepal</h3>
-      <div class="entry">
-        <h3>Society of Industrial Engineering Students (SOIES) Nepal</h3>
-        <ul>
-          <li>Secretary, 2020 to 2021</li>
-          <li>Executive Committee Member, 2019 to 2020</li>
-        </ul>
-      </div>
-      <div class="entry">
-        <h3>NxtGen event</h3>
-        <p>Public Relations Volunteer, 2020 to 2022</p>
-      </div>
-      <div class="entry">
-        <h3>Pioneer Higher Educational Academy, Syangja</h3>
-        <p>President, Student Intelligence Organization, 2015 to 2017</p>
-      </div>
-
-      <h3 class="list-title">Professional memberships</h3>
-      <ul class="pubs">
-        <li>Student Member, American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)</li>
-        <li>Student Member, Association of Energy Engineers (AEE)</li>
-        <li>Member, Sigma Lambda Chi International Construction Honor Society, PI II Chapter</li>
-      </ul>
-
-      <h3 class="list-title">Awards</h3>
-      <ul class="pubs">
-        <li>Champion, Summer 2026 NDSU Graduate School Writing Challenge, 2026 (<a href="certificates/writing-challenge-champion-2026.pdf" target="_blank" rel="noopener">certificate</a>)</li>
-        <li>First place, Mechanical Prototype Competition (plastic waste to energy), 2019</li>
-        <li>Merit-based scholarship, Institute of Engineering entrance exam, Tribhuvan University, 2017</li>
-        <li>Fully funded merit-based scholarship, higher secondary education, 2015</li>
-      </ul>
+        <p class="side-note">I find happiness in small moments and good conversations. Staying connected with my community is an important part of my life.</p>
+      </aside>
     </div>
   </section>
 
@@ -993,7 +1012,7 @@ footer {
   var status = document.getElementById('search-status');
   var list = document.getElementById('search-results');
   var pending = null;
-  var picks = '.role, .degrees li, .bio p, .interests li, .news li, .entry, .project, .band > div > p, .pubs li, .skills > div, .grid figure';
+  var picks = '.role, .degrees li, .bio p, .interests li, .side-list li, .side-note, .news li, .entry, .project, .band > div > p, .pubs li, .skills > div, .grid figure';
 
   function blocks() {
     var out = [];
