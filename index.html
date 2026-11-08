@@ -366,6 +366,16 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 .honey { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 @media (max-width: 600px) { .form-row { grid-template-columns: minmax(0, 1fr); } }
 
+.exp-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(16rem, 25rem); gap: 1.5rem 2.75rem; align-items: start; }
+.exp-list { max-width: 46rem; }
+.skills-box { position: sticky; top: 5.5rem; padding: 1.25rem 1.4rem; background: var(--hover); border-left: 4px solid var(--link); border-radius: 6px; }
+.skills-box h2 { margin: 0 0 0.5rem; font-size: 1.25rem; }
+.skills-box .skills div { grid-template-columns: minmax(0, 1fr); gap: 0.15rem; padding: 0.55rem 0; border-top: 1px solid var(--line); }
+.skills-box .skills div:first-child { border-top: 0; }
+.skills-box dt { font-size: 0.95rem; }
+.skills-box dd { font-size: 0.95rem; line-height: 1.5; }
+@media (max-width: 900px) { .exp-row { grid-template-columns: minmax(0, 1fr); } .skills-box { position: static; } }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -392,12 +402,10 @@ footer {
   <nav aria-label="Pages">
     <ul>
       <li><a href="#home">Home</a></li>
-      <li><a href="#research">Research</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#activities">Activities</a></li>
-      <li><a href="#skills">Skills</a></li>
       <li id="gallery-link" hidden><a href="#gallery">Gallery</a></li>
       <li><a href="#contact">Connect with Me</a></li>
       <li><a class="nav-search" href="#search" aria-label="Open search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><span class="tip" aria-hidden="true">Open search</span></a></li>
@@ -475,32 +483,10 @@ footer {
 </section>
 
 <main>
-  <section class="band page" id="research">
-    <h2>Research</h2>
-    <div>
-      <p>My research uses building energy simulation and measured data to understand how HVAC systems perform in existing buildings, with a focus on heat pumps in cold climates.</p>
-
-      <div class="entry">
-        <h3>Calibrated building energy models</h3>
-        <p>I build whole-building energy models and calibrate them against measured data, following ASHRAE Guideline 14.</p>
-      </div>
-
-      <div class="entry">
-        <h3>Multi-source heat pumps</h3>
-        <p>I compare air-source, ground-source, and multi-source heat pump systems across different climates.</p>
-      </div>
-
-      <div class="entry">
-        <h3>EnergyPlus and Modelica co-simulation</h3>
-        <p>I use Spawn of EnergyPlus to connect detailed building models with dynamic HVAC and control models.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="band wide page" id="projects">
     <h2>Projects</h2>
     <div>
-      <p class="gallery-intro">Selected research and student projects, newest first.</p>
+      <p class="gallery-intro">My research uses building energy simulation, field measurements, and AI to understand how HVAC systems and heat pumps perform in existing buildings, with a focus on cold climates. Below are selected research and student projects, newest first.</p>
       <div class="projects">
         <article class="project">
           <h3>AI-assisted calibration of a residential energy model</h3>
@@ -552,43 +538,57 @@ footer {
     </div>
   </section>
 
-  <section class="band page" id="experience">
+  <section class="band wide page" id="experience">
     <h2>Experience</h2>
-    <div>
-      <div class="entry">
-        <h3>Graduate Research Assistant</h3>
-        <p class="meta">North Dakota State University, Fargo, ND, January 2024 to present</p>
-        <ul>
-          <li>Research on building energy systems and building performance, including heat pump modeling, calibrated energy models, and EnergyPlus and Modelica co-simulation.</li>
-          <li>Develop digital twin models of whole buildings to evaluate and improve HVAC performance.</li>
-          <li>Conduct site visits, collect field data, and interview facility staff to assess HVAC system conditions.</li>
-          <li>Build simulation models from field data to evaluate energy-saving upgrades.</li>
-        </ul>
+    <div class="exp-row">
+      <div class="exp-list">
+        <div class="entry">
+          <h3>Graduate Research Assistant</h3>
+          <p class="meta">North Dakota State University, Fargo, ND, January 2024 to present</p>
+          <ul>
+            <li>Research on building energy systems and building performance, including heat pump modeling, calibrated energy models, and EnergyPlus and Modelica co-simulation.</li>
+            <li>Develop digital twin models of whole buildings to evaluate and improve HVAC performance.</li>
+            <li>Conduct site visits, collect field data, and interview facility staff to assess HVAC system conditions.</li>
+            <li>Build simulation models from field data to evaluate energy-saving upgrades.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>HVAC Engineer</h3>
+          <p class="meta">Thermotech Pvt. Ltd., Kathmandu, Nepal, April 2022 to January 2024</p>
+          <ul>
+            <li>Led HVAC design and installation projects for commercial and industrial facilities, in line with industry standards.</li>
+            <li>Designed, installed, tested, and commissioned ventilation for commercial kitchens, cold storage, and operating rooms.</li>
+            <li>Carried out energy audits and energy-saving measures that reduced energy use by about 15%.</li>
+            <li>Developed preventive maintenance plans that reduced downtime and extended equipment life.</li>
+            <li>Ran cost-benefit analyses of system options and worked with architects, contractors, and facility managers to deliver projects on budget and on time.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>Sales and Design Engineer</h3>
+          <p class="meta">GAI Import Export Pvt. Ltd., Kathmandu, Nepal, February 2022 to April 2022</p>
+          <ul>
+            <li>Prepared technical presentations and product demonstrations for customers.</li>
+            <li>Researched the market for new business opportunities and coordinated shipping and delivery of products.</li>
+          </ul>
+        </div>
+        <div class="entry">
+          <h3>HVAC Intern</h3>
+          <p class="meta">Thermotech Pvt. Ltd., Kathmandu, Nepal, December 2021 to February 2022</p>
+          <p>Learned HVAC load calculation, equipment selection, ductwork design, and cost estimating, and drew system layouts and piping diagrams in AutoCAD and Revit.</p>
+        </div>
       </div>
-      <div class="entry">
-        <h3>HVAC Engineer</h3>
-        <p class="meta">Thermotech Pvt. Ltd., Kathmandu, Nepal, April 2022 to January 2024</p>
-        <ul>
-          <li>Led HVAC design and installation projects for commercial and industrial facilities, in line with industry standards.</li>
-          <li>Designed, installed, tested, and commissioned ventilation for commercial kitchens, cold storage, and operating rooms.</li>
-          <li>Carried out energy audits and energy-saving measures that reduced energy use by about 15%.</li>
-          <li>Developed preventive maintenance plans that reduced downtime and extended equipment life.</li>
-          <li>Ran cost-benefit analyses of system options and worked with architects, contractors, and facility managers to deliver projects on budget and on time.</li>
-        </ul>
-      </div>
-      <div class="entry">
-        <h3>Sales and Design Engineer</h3>
-        <p class="meta">GAI Import Export Pvt. Ltd., Kathmandu, Nepal, February 2022 to April 2022</p>
-        <ul>
-          <li>Prepared technical presentations and product demonstrations for customers.</li>
-          <li>Researched the market for new business opportunities and coordinated shipping and delivery of products.</li>
-        </ul>
-      </div>
-      <div class="entry">
-        <h3>HVAC Intern</h3>
-        <p class="meta">Thermotech Pvt. Ltd., Kathmandu, Nepal, December 2021 to February 2022</p>
-        <p>Learned HVAC load calculation, equipment selection, ductwork design, and cost estimating, and drew system layouts and piping diagrams in AutoCAD and Revit.</p>
-      </div>
+      <aside class="skills-box" aria-labelledby="skills-title">
+        <h2 id="skills-title">Skills</h2>
+        <dl class="skills">
+          <div><dt>Energy modeling</dt><dd>EnergyPlus, OpenStudio, OpenModelica, Spawn of EnergyPlus, Modelica Buildings Library, TRNSYS</dd></div>
+          <div><dt>HVAC design</dt><dd>Load calculations, equipment selection, ductwork and ventilation design, testing and commissioning, energy audits</dd></div>
+          <div><dt>Standards</dt><dd>ASHRAE 90.1 Appendix G, ASHRAE Guideline 14, ASHRAE 55</dd></div>
+          <div><dt>CAD and analysis</dt><dd>AutoCAD, AutoCAD MEP, Revit, SolidWorks, Ansys, Minitab</dd></div>
+          <div><dt>Programming</dt><dd>Python, MATLAB, statistical data analysis</dd></div>
+          <div><dt>Project management</dt><dd>Cost estimating, CPM scheduling, earned value management, decision making and risk analysis</dd></div>
+          <div><dt>Engineering and business</dt><dd>Process optimization, cost-benefit analysis, Six Sigma, value engineering</dd></div>
+        </dl>
+      </aside>
     </div>
   </section>
 
@@ -684,21 +684,6 @@ footer {
         <li>Merit-based scholarship, Institute of Engineering entrance exam, Tribhuvan University, 2017</li>
         <li>Fully funded merit-based scholarship, higher secondary education, 2015</li>
       </ul>
-    </div>
-  </section>
-
-  <section class="band page" id="skills">
-    <h2>Skills</h2>
-    <div>
-      <dl class="skills">
-        <div><dt>Energy modeling</dt><dd>EnergyPlus, OpenStudio, OpenModelica, Spawn of EnergyPlus, Modelica Buildings Library, TRNSYS</dd></div>
-        <div><dt>HVAC design</dt><dd>Load calculations, equipment selection, ductwork and ventilation design, testing and commissioning, energy audits</dd></div>
-        <div><dt>Standards</dt><dd>ASHRAE 90.1 Appendix G, ASHRAE Guideline 14, ASHRAE 55</dd></div>
-        <div><dt>CAD and analysis</dt><dd>AutoCAD, AutoCAD MEP, Revit, SolidWorks, Ansys, Minitab</dd></div>
-        <div><dt>Programming</dt><dd>Python, MATLAB, statistical data analysis</dd></div>
-        <div><dt>Project management</dt><dd>Cost estimating, CPM scheduling, earned value management, decision making and risk analysis</dd></div>
-        <div><dt>Engineering and business</dt><dd>Process optimization, cost-benefit analysis, Six Sigma, value engineering</dd></div>
-      </dl>
     </div>
   </section>
 
