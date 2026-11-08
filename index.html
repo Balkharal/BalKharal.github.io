@@ -387,6 +387,11 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 .side-list li::marker { color: var(--link); }
 .side-note { margin: 0.9rem 0 0; padding-top: 0.9rem; border-top: 1px solid var(--line); font-size: 0.98rem; line-height: 1.6; font-style: italic; }
 
+.proj-slides { margin-top: 1.25rem; }
+.proj-slides .slide-btn-img { background: #ffffff; }
+.proj-slides .slide-btn-img img { object-fit: contain; aspect-ratio: 16 / 10; }
+#projects .list-title { margin-top: 2.5rem; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -496,6 +501,10 @@ footer {
     <h2>Projects</h2>
     <div>
       <p class="gallery-intro">My work combines building energy simulation, field measurements, and AI to evaluate building performance, improve HVAC and renewable energy systems, and develop digital twins of buildings. Below are selected research, engineering, and student projects, listed from newest to oldest.</p>
+      <section class="slides proj-slides" id="proj-slides" aria-label="Project images">
+        <div class="slider-pair" id="proj-pair"></div>
+      </section>
+      <h3 class="list-title">All projects</h3>
       <div class="projects">
         <article class="project">
           <h3>AI-assisted calibration of a residential energy model</h3>
@@ -1145,6 +1154,80 @@ footer {
         button.textContent = 'Send message';
       });
   });
+})();
+</script>
+<script>
+// Projects page: two image slideshows (building models on the left, system models on the right).
+(function () {
+  var reels = [
+    [
+      { file: 'projects/school-energy-model.jpg', caption: '3D energy model of a large high school, built for a Section 179D analysis' },
+      { file: 'projects/residential-energy-model.png', caption: 'Energy model of the occupied house used for field-measurement-based calibration' }
+    ],
+    [
+      { file: 'projects/modelica-model.png', caption: 'Modelica model of the multi-source heat pump system, linked to an EnergyPlus building model' },
+      { file: 'projects/openstudio-model.jpg', caption: 'HVAC system layout in OpenStudio for the high school energy model' }
+    ]
+  ];
+  var pair = document.getElementById('proj-pair');
+  var page = document.getElementById('projects');
+  var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var viewer = document.getElementById('viewer');
+  var arrowL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>';
+  var arrowR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>';
+
+  function openLarge(p) {
+    document.getElementById('viewer-img').src = p.file;
+    document.getElementById('viewer-img').alt = p.caption;
+    document.getElementById('viewer-caption').textContent = p.caption;
+    document.getElementById('viewer-prev').hidden = true;
+    document.getElementById('viewer-next').hidden = true;
+    if (viewer.showModal) viewer.showModal(); else window.open(p.file);
+  }
+
+  var sliders = reels.map(function (reel, n) {
+    var el = document.createElement('div');
+    el.className = 'slider';
+    el.setAttribute('role', 'region');
+    el.setAttribute('aria-roledescription', 'carousel');
+    el.setAttribute('aria-label', n === 0 ? 'Building energy models' : 'HVAC and system models');
+    el.innerHTML =
+      '<div class="slide-frame">' +
+        '<button type="button" class="slide-btn-img"><img alt=""></button>' +
+        '<button type="button" class="slide-arrow prev" aria-label="Previous image">' + arrowL + '</button>' +
+        '<button type="button" class="slide-arrow next" aria-label="Next image">' + arrowR + '</button>' +
+      '</div><div class="dots"></div><p class="slide-cap" aria-live="polite"></p>';
+    pair.appendChild(el);
+    var img = el.querySelector('img'), cap = el.querySelector('.slide-cap'), dots = el.querySelector('.dots');
+    var at = 0, hovering = false;
+    function draw(i, animate) {
+      at = (i + reel.length) % reel.length;
+      var p = reel[at];
+      function swap() { img.src = p.file; img.alt = p.caption; cap.textContent = p.caption; img.classList.remove('fading'); }
+      if (animate && !calm) { img.classList.add('fading'); setTimeout(swap, 300); } else swap();
+      [].forEach.call(dots.children, function (d, k) { d.setAttribute('aria-current', k === at ? 'true' : 'false'); });
+    }
+    reel.forEach(function (_, k) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Show image ' + (k + 1) + ' of ' + reel.length);
+      d.addEventListener('click', function () { draw(k, true); });
+      dots.appendChild(d);
+    });
+    el.querySelector('.prev').addEventListener('click', function () { draw(at - 1, true); });
+    el.querySelector('.next').addEventListener('click', function () { draw(at + 1, true); });
+    el.querySelector('.slide-btn-img').addEventListener('click', function () { openLarge(reel[at]); });
+    var frame = el.querySelector('.slide-frame');
+    frame.addEventListener('mouseenter', function () { hovering = true; });
+    frame.addEventListener('mouseleave', function () { hovering = false; });
+    frame.addEventListener('focusin', function () { hovering = true; });
+    frame.addEventListener('focusout', function () { hovering = false; });
+    draw(0, false);
+    return { step: function () { if (!calm && !hovering && !page.hidden && !document.hidden) draw(at + 1, true); } };
+  });
+
+  var turn = 0;
+  setInterval(function () { sliders[turn % sliders.length].step(); turn++; }, 2000);
 })();
 </script>
 <script>
