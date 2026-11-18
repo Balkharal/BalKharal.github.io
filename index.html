@@ -405,6 +405,37 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 .proj-slides .slide-btn-img img { object-fit: contain; aspect-ratio: 16 / 10; }
 #projects .list-title { margin-top: 2.5rem; }
 
+.acc-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin-bottom: 1rem; }
+.acc-tools p { margin: 0; color: var(--muted); font-size: 0.98rem; }
+.acc-toggle { font: inherit; font-family: var(--sans); font-size: 0.9rem; font-weight: 600; padding: 0.35rem 0.8rem; border: 1px solid var(--ink); border-radius: 4px; background: transparent; color: var(--ink); cursor: pointer; }
+.acc-toggle:hover { background: var(--hover); }
+.acc { border: 1px solid var(--line); border-radius: 8px; margin-bottom: 0.85rem; background: var(--bg); transition: border-color 0.2s; }
+.acc[open] { border-color: var(--link); }
+.acc summary {
+  list-style: none; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 0.2rem 0.75rem;
+  padding: 1rem 1.15rem; border-radius: 8px;
+}
+.acc summary::-webkit-details-marker { display: none; }
+.acc summary::after {
+  content: ""; grid-column: 3; grid-row: 1; width: 0.6rem; height: 0.6rem; margin: 0 0.2rem 0.25rem;
+  border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); transition: transform 0.2s;
+}
+.acc[open] summary::after { transform: rotate(225deg); margin-bottom: -0.15rem; }
+.acc summary:hover { background: var(--hover); }
+.acc summary:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.acc-title { grid-column: 1; font-family: var(--sans); font-weight: 700; font-size: 1.12rem; }
+.acc-count { grid-column: 2; grid-row: 1; min-width: 1.8rem; padding: 0.1rem 0.5rem; border-radius: 999px; background: var(--link); color: #ffffff; font-family: var(--sans); font-size: 0.82rem; font-weight: 700; text-align: center; }
+:root[data-dark="true"] .acc-count { color: #0b1a24; }
+.acc-blurb { grid-column: 1 / -1; font-size: 0.92rem; color: var(--muted); }
+.acc-list { list-style: none; margin: 0; padding: 0 1.15rem 0.6rem; border-top: 1px solid var(--line); }
+.acc-list li { display: grid; gap: 0.15rem; padding: 0.8rem 0; border-bottom: 1px solid var(--line); }
+.acc-list li:last-child { border-bottom: 0; }
+.acc-list b { font-family: var(--sans); font-weight: 600; font-size: 1rem; }
+.acc-meta { font-size: 0.95rem; color: var(--muted); }
+.acc-link { justify-self: start; margin-top: 0.2rem; font-family: var(--sans); font-size: 0.92rem; font-weight: 600; }
+@media (prefers-reduced-motion: no-preference) { .acc[open] .acc-list { animation: acc-in 0.25s ease-out; } }
+@keyframes acc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -674,61 +705,58 @@ footer {
     <h2>Leadership and activities</h2>
     <div class="exp-row">
       <div class="exp-list">
-        <h3 class="list-title">At North Dakota State University</h3>
-        <div class="entry">
-          <h3>NDSU Graduate Student Council</h3>
-          <ul>
-            <li>College of Engineering Representative, 2026 to 2027</li>
-            <li>Civil Engineering Representative, 2025 to 2026</li>
-            <li>Finance Committee Member, November 2024 to August 2025</li>
+        <div class="acc-tools">
+          <p>Select a section to see the details.</p>
+          <button type="button" class="acc-toggle" id="acc-toggle">Expand all</button>
+        </div>
+        <details class="acc" id="acc-leadership">
+          <summary><span class="acc-title">Leadership and organizations</span><span class="acc-count">7</span><span class="acc-blurb">Student government and student organizations</span></summary>
+          <ul class="acc-list">
+          <li><b>College of Engineering Representative</b><span class="acc-meta">NDSU Graduate Student Council, 2026 to 2027</span></li>
+          <li><b>Civil Engineering Representative</b><span class="acc-meta">NDSU Graduate Student Council, 2025 to 2026</span></li>
+          <li><b>Finance Committee Member</b><span class="acc-meta">NDSU Graduate Student Council, November 2024 to August 2025</span></li>
+          <li><b>Secretary</b><span class="acc-meta">Nepalese Student Association (Chautaree), NDSU, April 2025 to April 2026</span></li>
+          <li><b>Secretary</b><span class="acc-meta">Society of Industrial Engineering Students (SOIES) Nepal, 2020 to 2021</span></li>
+          <li><b>Executive Committee Member</b><span class="acc-meta">Society of Industrial Engineering Students (SOIES) Nepal, 2019 to 2020</span></li>
+          <li><b>President</b><span class="acc-meta">Student Intelligence Organization, Pioneer Higher Educational Academy, Syangja, 2015 to 2017</span></li>
           </ul>
-        </div>
-        <div class="entry">
-          <h3>Nepalese Student Association (Chautaree), NDSU</h3>
-          <p>Secretary, April 2025 to April 2026</p>
-        </div>
-        <div class="entry">
-          <h3>Volunteering, outreach, and tours</h3>
-          <ul>
-            <li>Bison to Bakken energy tour: wind, coal, power generation, ethanol, and manufacturing sites across North Dakota, 2026 (<a href="https://www.researchgate.net/publication/417611959_Bison_to_the_Bakken_A_Field_Study_of_North_Dakota%27s_Energy_System_from_Production_to_End_Use" target="_blank" rel="noopener">report</a>)</li>
-            <li>NDSU Student Research Day, 2026</li>
-            <li>Party for the Planet, Red River Zoo, Fargo: shared heat pump research with the public, April 2024</li>
-            <li>NDSU Homecoming Parade: volunteer in 2024, and represented Nepal in 2025</li>
-            <li>NDSU Career Expo, 2024 to 2025</li>
+        </details>
+        <details class="acc" id="acc-volunteering">
+          <summary><span class="acc-title">Volunteering and outreach</span><span class="acc-count">5</span><span class="acc-blurb">Campus events, community, and public outreach</span></summary>
+          <ul class="acc-list">
+          <li><b>NDSU Student Research Day</b><span class="acc-meta">Volunteer, 2026</span></li>
+          <li><b>NDSU Homecoming Parade</b><span class="acc-meta">Represented Nepal in 2025, and volunteered in 2024</span></li>
+          <li><b>NDSU Career Expo</b><span class="acc-meta">Volunteer, 2024 to 2025</span></li>
+          <li><b>Party for the Planet, Red River Zoo, Fargo</b><span class="acc-meta">Shared heat pump research with the public, April 2024</span></li>
+          <li><b>NxtGen event</b><span class="acc-meta">Public Relations Volunteer, 2020 to 2022</span></li>
           </ul>
-        </div>
-
-        <h3 class="list-title">In Nepal</h3>
-        <div class="entry">
-          <h3>Society of Industrial Engineering Students (SOIES) Nepal</h3>
-          <ul>
-            <li>Secretary, 2020 to 2021</li>
-            <li>Executive Committee Member, 2019 to 2020</li>
+        </details>
+        <details class="acc" id="acc-training">
+          <summary><span class="acc-title">Training and certificates</span><span class="acc-count">4</span><span class="acc-blurb">Courses, webinars, and field training, with certificates</span></summary>
+          <ul class="acc-list">
+          <li><b>Radiant Cooling and Heating Systems for Large Commercial Buildings (Part 2 of 2)</b><span class="acc-meta">PG&amp;E Energy Centers webinar, 3.5 hours, November 2026</span><a class="acc-link" href="certificates/pge-radiant-heating-cooling-2026.pdf" target="_blank" rel="noopener">View certificate</a></li>
+          <li><b>Bison to the Bakken energy field tour</b><span class="acc-meta">Wind, coal, power generation, ethanol, and manufacturing sites across North Dakota, 2026</span><a class="acc-link" href="https://doi.org/10.13140/RG.2.2.33053.88808" target="_blank" rel="noopener">Read the report</a></li>
+          <li><b>Title 24 Compliance Modeling and Decarbonization with IESVE Software (Part 1 of 2)</b><span class="acc-meta">PG&amp;E Energy Centers webinar, 3 hours, May 2026</span><a class="acc-link" href="certificates/pge-title24-iesve-2026.pdf" target="_blank" rel="noopener">View certificate</a></li>
+          <li><b>Revolutionize Your HVAC Design Workflow</b><span class="acc-meta">IES Virtual Environment software training, 1 PDH, February 2026</span><a class="acc-link" href="certificates/ies-ve-hvac-design-workflow-2026.pdf" target="_blank" rel="noopener">View certificate</a></li>
           </ul>
-        </div>
-        <div class="entry">
-          <h3>NxtGen event</h3>
-          <p>Public Relations Volunteer, 2020 to 2022</p>
-        </div>
-        <div class="entry">
-          <h3>Pioneer Higher Educational Academy, Syangja</h3>
-          <p>President, Student Intelligence Organization, 2015 to 2017</p>
-        </div>
-
-        <h3 class="list-title">Professional memberships</h3>
-        <ul class="pubs">
-          <li>Student Member, American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)</li>
-          <li>Student Member, Association of Energy Engineers (AEE)</li>
-          <li>Member, Sigma Lambda Chi International Construction Honor Society, PI II Chapter</li>
-        </ul>
-
-        <h3 class="list-title">Awards</h3>
-        <ul class="pubs">
-          <li>Champion, Summer 2026 NDSU Graduate School Writing Challenge, 2026 (<a href="certificates/writing-challenge-champion-2026.pdf" target="_blank" rel="noopener">certificate</a>)</li>
-          <li>First place, Mechanical Prototype Competition (plastic waste to energy), 2019</li>
-          <li>Merit-based scholarship, Institute of Engineering entrance exam, Tribhuvan University, 2017</li>
-          <li>Fully funded merit-based scholarship, higher secondary education, 2015</li>
-        </ul>
+        </details>
+        <details class="acc" id="acc-memberships">
+          <summary><span class="acc-title">Professional memberships</span><span class="acc-count">3</span><span class="acc-blurb">Engineering and construction societies</span></summary>
+          <ul class="acc-list">
+          <li><b>Student Member</b><span class="acc-meta">American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)</span></li>
+          <li><b>Student Member</b><span class="acc-meta">Association of Energy Engineers (AEE)</span></li>
+          <li><b>Member</b><span class="acc-meta">Sigma Lambda Chi International Construction Honor Society, PI II Chapter</span></li>
+          </ul>
+        </details>
+        <details class="acc" id="acc-awards">
+          <summary><span class="acc-title">Awards</span><span class="acc-count">4</span><span class="acc-blurb">Competitions and scholarships</span></summary>
+          <ul class="acc-list">
+          <li><b>Champion, Summer 2026 NDSU Graduate School Writing Challenge</b><span class="acc-meta">2026</span><a class="acc-link" href="certificates/writing-challenge-champion-2026.pdf" target="_blank" rel="noopener">View certificate</a></li>
+          <li><b>First place, Mechanical Prototype Competition</b><span class="acc-meta">Plastic waste to energy prototype, 2019</span></li>
+          <li><b>Merit-based scholarship</b><span class="acc-meta">Institute of Engineering entrance exam, Tribhuvan University, 2017</span></li>
+          <li><b>Fully funded merit-based scholarship</b><span class="acc-meta">Higher secondary education, 2015</span></li>
+          </ul>
+        </details>
       </div>
       <aside class="skills-box" aria-labelledby="personal-title">
         <h2 id="personal-title">Personal interests</h2>
@@ -1047,7 +1075,7 @@ footer {
   var status = document.getElementById('search-status');
   var list = document.getElementById('search-results');
   var pending = null;
-  var picks = '.role, .degrees li, .bio p, .interests li, .side-list li, .side-note, .news li, .entry, .project, .band > div > p, .pubs li, .skills > div, .grid figure';
+  var picks = '.role, .degrees li, .bio p, .interests li, .side-list li, .side-note, .acc-list li, .news li, .entry, .project, .band > div > p, .pubs li, .skills > div, .grid figure';
 
   function blocks() {
     var out = [];
@@ -1114,6 +1142,8 @@ footer {
     if (location.hash === '#search') { setTimeout(function () { input.focus(); }, 0); return; }
     if (!pending) return;
     var el = pending; pending = null;
+    var box = el.closest('details');
+    if (box) box.open = true;
     var panel = el.closest('[role=tabpanel]');
     if (panel && panel.hidden && window.selectGalleryPanel) window.selectGalleryPanel(panel.id);
     setTimeout(function () {
@@ -1254,6 +1284,22 @@ footer {
 
   var turn = 0;
   setInterval(function () { sliders[turn % sliders.length].step(); turn++; }, 2000);
+})();
+</script>
+<script>
+// Activities: expand or collapse all sections.
+(function () {
+  var btn = document.getElementById('acc-toggle');
+  var boxes = [].slice.call(document.querySelectorAll('#activities details.acc'));
+  function label() {
+    btn.textContent = boxes.every(function (d) { return d.open; }) ? 'Collapse all' : 'Expand all';
+  }
+  btn.addEventListener('click', function () {
+    var open = !boxes.every(function (d) { return d.open; });
+    boxes.forEach(function (d) { d.open = open; });
+    label();
+  });
+  boxes.forEach(function (d) { d.addEventListener('toggle', label); });
 })();
 </script>
 <script>
