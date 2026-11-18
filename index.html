@@ -436,6 +436,25 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 @media (prefers-reduced-motion: no-preference) { .acc[open] .acc-list { animation: acc-in 0.25s ease-out; } }
 @keyframes acc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 
+#acc-leadership { --acc: #1a66d6; --acc-soft: rgb(26 102 214 / 0.08); }
+#acc-volunteering { --acc: #1d7f46; --acc-soft: rgb(29 127 70 / 0.08); }
+#acc-training { --acc: #6a4bc4; --acc-soft: rgb(106 75 196 / 0.08); }
+#acc-memberships { --acc: #0d7482; --acc-soft: rgb(13 116 130 / 0.08); }
+#acc-awards { --acc: #a85d00; --acc-soft: rgb(168 93 0 / 0.09); }
+:root[data-dark="true"] #acc-leadership { --acc: #8ab4f8; --acc-soft: rgb(138 180 248 / 0.10); }
+:root[data-dark="true"] #acc-volunteering { --acc: #6fd39a; --acc-soft: rgb(111 211 154 / 0.10); }
+:root[data-dark="true"] #acc-training { --acc: #b9a4ff; --acc-soft: rgb(185 164 255 / 0.10); }
+:root[data-dark="true"] #acc-memberships { --acc: #62d0dc; --acc-soft: rgb(98 208 220 / 0.10); }
+:root[data-dark="true"] #acc-awards { --acc: #ffc266; --acc-soft: rgb(255 194 102 / 0.10); }
+.acc { border-left: 5px solid var(--acc, var(--link)); }
+.acc[open] { border-color: var(--acc, var(--link)); }
+.acc summary { background: var(--acc-soft, transparent); }
+.acc summary:hover { background: var(--acc-soft, var(--hover)); filter: brightness(0.97); }
+.acc[open] summary { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.acc-count { background: var(--acc, var(--link)); }
+.acc summary::after { border-color: var(--acc, var(--ink)); }
+.acc-list li b::before { content: ""; display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.5rem; border-radius: 50%; background: var(--acc, var(--link)); vertical-align: 0.12em; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -741,10 +760,11 @@ footer {
           </ul>
         </details>
         <details class="acc" id="acc-memberships">
-          <summary><span class="acc-title">Professional memberships</span><span class="acc-count">3</span><span class="acc-blurb">Engineering and construction societies</span></summary>
+          <summary><span class="acc-title">Professional memberships</span><span class="acc-count">4</span><span class="acc-blurb">Engineering and construction societies</span></summary>
           <ul class="acc-list">
           <li><b>Student Member</b><span class="acc-meta">American Society of Heating, Refrigerating and Air-Conditioning Engineers (ASHRAE)</span></li>
           <li><b>Student Member</b><span class="acc-meta">Association of Energy Engineers (AEE)</span></li>
+          <li><b>Student Member</b><span class="acc-meta">International Building Performance Simulation Association, USA chapter (IBPSA-USA)</span></li>
           <li><b>Member</b><span class="acc-meta">Sigma Lambda Chi International Construction Honor Society, PI II Chapter</span></li>
           </ul>
         </details>
