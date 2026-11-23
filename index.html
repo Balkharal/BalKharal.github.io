@@ -456,6 +456,14 @@ footer .updated { margin-top: 0.3rem; font-size: 0.85rem; }
 .acc summary::after { border-color: var(--acc, var(--ink)); }
 .acc-list li b::before { content: ""; display: inline-block; width: 0.45rem; height: 0.45rem; margin-right: 0.5rem; border-radius: 50%; background: var(--acc, var(--link)); vertical-align: 0.12em; }
 
+.showcase { margin-top: 3rem; }
+.showcase h2 { font-size: clamp(1.6rem, 3.5vw, 2.1rem); margin-bottom: 1rem; }
+.showcase figure { margin: 0; }
+.showcase-video { display: block; width: 100%; aspect-ratio: 16 / 9; background: #f2f1ec; border: 1px solid var(--line); border-radius: 8px; }
+.showcase figcaption { margin-top: 0.75rem; font-size: 0.98rem; color: var(--muted); line-height: 1.6; }
+.proj-showcase { margin-top: 1.5rem; }
+.proj-showcase .list-title { margin-top: 0; }
+
 footer {
   padding: 1.5rem var(--edge) 2.5rem;
   font-family: var(--sans); font-size: 0.9rem; color: var(--muted);
@@ -562,6 +570,16 @@ footer {
       <a class="all" href="#gallery">See all photos</a>
     </div>
   </section>
+
+  <section class="showcase" aria-labelledby="showcase-title">
+    <h2 id="showcase-title">Project showcase</h2>
+    <figure>
+      <video class="showcase-video" muted loop playsinline controls preload="metadata" poster="projects/high-thermal-mass-house-3d-poster.jpg" aria-label="Animated 3D model of a high-thermal-mass house and its HVAC systems">
+        <source src="projects/high-thermal-mass-house-3d.mp4" type="video/mp4">
+      </video>
+      <figcaption>3D model of a high-thermal-mass house and its HVAC systems: radiant floor heating, a mini-split heat pump, slab thermal storage, and shallow ground loops. From my ongoing research project. <a href="#projects">See my projects</a></figcaption>
+    </figure>
+  </section>
 </section>
 
 <main>
@@ -569,6 +587,15 @@ footer {
     <h2>Projects</h2>
     <div>
       <p class="gallery-intro">My work combines building energy simulation, field measurements, and AI to evaluate building performance, improve HVAC and renewable energy systems, and develop digital twins of buildings. Below are selected research, engineering, and student projects, listed from newest to oldest.</p>
+      <section class="showcase proj-showcase" aria-labelledby="proj-showcase-title">
+        <h3 class="list-title" id="proj-showcase-title">Featured: ongoing project</h3>
+        <figure>
+          <video class="showcase-video" muted loop playsinline controls preload="metadata" poster="projects/high-thermal-mass-house-3d-poster.jpg" aria-label="Animated 3D model of a high-thermal-mass house and its HVAC systems">
+          <source src="projects/high-thermal-mass-house-3d.mp4" type="video/mp4">
+        </video>
+          <figcaption>3D model of a high-thermal-mass house and its HVAC systems: radiant floor heating, a mini-split heat pump, slab thermal storage, and shallow ground loops. From my ongoing research project.</figcaption>
+        </figure>
+      </section>
       <section class="slides proj-slides" id="proj-slides" aria-label="Project images">
         <div class="slider-pair" id="proj-pair"></div>
       </section>
@@ -859,7 +886,7 @@ footer {
 
 <footer>
   <p>Bal Krishna Kharal</p>
-  <p class="updated">Last updated: <time datetime="2026-11-22">November 22, 2026</time></p>
+  <p class="updated">Last updated: <time datetime="2026-11-23">November 23, 2026</time></p>
 </footer>
 <script>
 // Builds the gallery from the GALLERY list at the top of this file.
@@ -1242,6 +1269,8 @@ footer {
 (function () {
   var reels = [
     [
+      { file: 'projects/high-thermal-mass-house-model.jpg', caption: '3D model of a high-thermal-mass house with radiant floors, a mini-split heat pump, and shallow ground loops (ongoing project)' },
+      { file: 'projects/high-thermal-mass-house-floors.jpg', caption: 'Exploded view of the same house, showing the radiant slabs, thermal storage layer, and ground loops (ongoing project)' },
       { file: 'projects/school-energy-model.jpg', caption: '3D energy model of a large high school, built for a Section 179D analysis' },
       { file: 'projects/residential-energy-model.png', caption: 'Energy model of the occupied house used for field-measurement-based calibration' }
     ],
@@ -1326,6 +1355,26 @@ footer {
     label();
   });
   boxes.forEach(function (d) { d.addEventListener('toggle', label); });
+})();
+</script>
+<script>
+// Showcase videos: play while on screen, pause otherwise. No autoplay if the visitor prefers reduced motion.
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('.showcase-video'));
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (list) {
+    list.forEach(function (e) {
+      var v = e.target;
+      if (e.isIntersecting && !v.dataset.userPaused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+      else if (!e.isIntersecting) v.pause();
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) {
+    v.addEventListener('pause', function () { if (v.dataset.auto !== '1' && document.visibilityState === 'visible' && isOn(v)) v.dataset.userPaused = '1'; });
+    v.addEventListener('play', function () { delete v.dataset.userPaused; });
+    io.observe(v);
+  });
+  function isOn(v) { var r = v.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; }
 })();
 </script>
 <script>
